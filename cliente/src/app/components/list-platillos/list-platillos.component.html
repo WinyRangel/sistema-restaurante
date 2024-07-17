@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+      <div *ngFor="let platillo of listPlatillos" class="col-md-4 mb-4">
+        <div class="card">
+          <img [src]="platillo.imagen" class="card-img-top" alt="{{ platillo.nombre }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ platillo.nombre }}</h5>
+            <p class="card-text">{{ platillo.descripcion }}</p>
+            <p class="card-text"><strong>Precio:</strong> {{ platillo.precio | currency }}</p>
+<!--             <button class="btn btn-danger" (click)="deletePlatillo(platillo.platilloId)">Eliminar</button>
+ -->          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

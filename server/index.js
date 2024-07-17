@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors'); 
 const connectDB = require('./config/db');
 
 // Asegúrate de que esta línea esté justo después de cargar dotenv
@@ -13,10 +14,19 @@ connectDB();
 // Middleware
 app.use(express.json());
 
+// Configuración de CORS
+app.use(cors());
+
+
+
 // Routes 
 app.use('/api/users', require('./routes/auth.routes'));
+app.use('/api/platillos', require('./routes/platillo.routes'));
+
+
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en ${PORT}`);
 });
+

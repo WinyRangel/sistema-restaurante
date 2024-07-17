@@ -12,6 +12,10 @@ import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesi
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
+import { ListPlatillosComponent } from './components/list-platillos/list-platillos.component';
+import { AddEditPlatillosComponent } from './components/add-edit-platillos/add-edit-platillos.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,10 +24,14 @@ import { HomeComponent } from './components/home/home.component';
     IniciarSesionComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent  ],
+    HomeComponent,
+    ListPlatillosComponent,
+    AddEditPlatillosComponent  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     CargarScriptService,
