@@ -12,14 +12,15 @@ import { Platillo } from '../../interfaces/Platillo';
 export class AddEditPlatillosComponent implements OnInit {
 
   platilloForm: FormGroup;
-  isNew: boolean = true;
-  platilloId: number = 0; // O el valor inicial que corresponda
+  operacion: boolean = true;
+  platilloId: number = 0; 
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
     private platilloService: PlatilloService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute //para que permita obtener un parametro como ruta (id)
   ) { 
     this.platilloForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -30,29 +31,42 @@ export class AddEditPlatillosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.platilloForm = this.fb.group({
-      nombre: ['', Validators.required],
-      descripcion: [''],
-      precio: ['', [Validators.required, Validators.min(0)]],
-      imagen: ['']
-    });
-
     // Verificar si estamos editando o agregando un nuevo platillo
     this.route.params.subscribe(params => {
-      this.platilloId = +params['id']; // El '+' convierte el parámetro a número
-      if (this.platilloId) {
-        this.isNew = false;
+      this.platilloId = +params['id']; // El '+' convierte el parámetro a número, lo obtiene como ruta
+      if (this.platilloId) {//si obtiene un id ...
+        this.operacion = false; // Ahora ponemos que no es nuevo para editarlo
         this.platilloService.getPlatilloById(this.platilloId).subscribe(platillo => {
-          this.platilloForm.patchValue(platillo); // Prensa el formulario con los datos del platillo
+          this.platilloForm.patchValue(platillo); //llenar el formulario con los datos del platillo
         });
       }
     });
   }
 
-  onSubmit() {
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
+  onSubmit() {//para crear platillo
     if (this.platilloForm.valid) {
-      const formData = this.platilloForm.value;
-      if (this.isNew) {
+      const formData = new FormData();
+      formData.append('nombre', this.platilloForm.get('nombre')!.value);//interfaz que te permite construir un objeto que puede ser enviado, appemd--agregar valores a un objeto
+      formData.append('descripcion', this.platilloForm.get('descripcion')!.value);
+      formData.append('precio', this.platilloForm.get('precio')!.value);
+  
+      // Si se ha seleccionado un archivo, añadirlo al FormData
+      if (this.selectedFile) {
+        formData.append('imagen', this.selectedFile);
+      } else {
+        // Para la edición, si no se selecciona un nuevo archivo, añadir el valor actual de la imagen
+        formData.append('imagen', this.platilloForm.get('imagen')!.value || '');
+      }
+  
+      //enviar a platillos en ambos casos
+      if (this.operacion) {
         this.platilloService.createPlatillo(formData).subscribe(() => {
           this.router.navigate(['/platillos']);
         });
@@ -63,4 +77,5 @@ export class AddEditPlatillosComponent implements OnInit {
       }
     }
   }
+  
 }

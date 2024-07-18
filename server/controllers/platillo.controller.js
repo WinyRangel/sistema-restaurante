@@ -1,15 +1,34 @@
 const connectDB = require('../config/db');
+const multer = require('multer');
+const path = require('path');
+
+// Configuración de Multer para sbir imagenes
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}${path.extname(file.originalname)}`);
+  }
+});
+
+const upload = multer({ storage });
 
 const getPlatillos = async (req, res) => {
   try {
     const connection = await connectDB();
     const [rows] = await connection.query('SELECT * FROM Platillos');
-    res.json(rows);
+    const platillos = rows.map(platillo => ({
+      ...platillo,
+      imagen: platillo.imagen ? `http://localhost:3002/uploads/${platillo.imagen}` : null // Cambia la URL base según tu configuración
+    }));
+    res.json(platillos);
   } catch (error) {
     console.error(error);
     res.status(500).json({ msg: 'Error al obtener los platillos' });
   }
 };
+
 
 const getPlatilloById = async (req, res) => {
   const { id } = req.params;
@@ -27,7 +46,8 @@ const getPlatilloById = async (req, res) => {
 };
 
 const crearPlatillo = async (req, res) => {
-  const { nombre, descripcion, precio, imagen } = req.body;
+  const { nombre, descripcion, precio } = req.body;
+  const imagen = req.file ? req.file.filename : null;
   try {
     const connection = await connectDB();
     const [result] = await connection.query('INSERT INTO Platillos (nombre, descripcion, precio, imagen) VALUES (?, ?, ?, ?)', [nombre, descripcion, precio, imagen]);
@@ -40,7 +60,8 @@ const crearPlatillo = async (req, res) => {
 
 const actualizarPlatillo = async (req, res) => {
   const { id } = req.params;
-  const { nombre, descripcion, precio, imagen } = req.body;
+  const { nombre, descripcion, precio } = req.body;
+  const imagen = req.file ? req.file.filename : req.body.imagen;
   try {
     const connection = await connectDB();
     const [result] = await connection.query('UPDATE Platillos SET nombre = ?, descripcion = ?, precio = ?, imagen = ? WHERE platilloId = ?', [nombre, descripcion, precio, imagen, id]);
@@ -74,5 +95,6 @@ module.exports = {
   getPlatilloById,
   crearPlatillo,
   actualizarPlatillo,
-  eliminarPlatillo
+  eliminarPlatillo,
+  upload
 };

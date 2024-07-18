@@ -19,13 +19,13 @@ export class PlatilloService {
     return this.http.get<Platillo>(`${this.apiUrl}/${id}`);
   }
 
-  createPlatillo(platillo: Platillo): Observable<Platillo> {
+  createPlatillo(platillo: FormData): Observable<Platillo> {
     return this.http.post<Platillo>(this.apiUrl, platillo);
   }
 
-  updatePlatillo(id: number, platillo: Platillo): Observable<Platillo> {
+  updatePlatillo(id: number, platillo: FormData): Observable<Platillo> {
     return this.http.put<Platillo>(`${this.apiUrl}/${id}`, platillo);
-  }
+  }  
 
   deletePlatillo(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);

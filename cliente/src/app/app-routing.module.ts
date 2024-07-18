@@ -7,7 +7,7 @@ import { AddEditPlatillosComponent } from './components/add-edit-platillos/add-e
 const routes: Routes = [
   { path: '', component: HomeComponent,  data: { breadcrumb: 'Inicio'}},
   { path: 'platillos', component: ListPlatillosComponent},
-  { path: 'add-platillo', component: AddEditPlatillosComponent },
+  { path: 'add', component: AddEditPlatillosComponent },
   { path: 'edit-platillo/:id', component: AddEditPlatillosComponent },
   { path: '**', redirectTo: 'error404'}
 ];
