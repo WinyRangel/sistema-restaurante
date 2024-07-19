@@ -1,0 +1,33 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Bebida } from '../interfaces/Bebida';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BebidaService {
+  private apiUrl = 'http://localhost:3002/api/bebidas';
+
+  constructor(private http: HttpClient) { }
+
+  getBebidas(): Observable<Bebida[]> {
+    return this.http.get<Bebida[]>(this.apiUrl);
+  }
+
+  getBebidaById(id: number): Observable<Bebida> {
+    return this.http.get<Bebida>(`${this.apiUrl}/${id}`);
+  }
+
+  createBebida(bebida: FormData): Observable<Bebida> {
+    return this.http.post<Bebida>(this.apiUrl, bebida);
+  }
+
+  updateBebida(id: number, bebida: FormData): Observable<Bebida> {
+    return this.http.put<Bebida>(`${this.apiUrl}/${id}`, bebida);
+  }  
+
+  deleteBebida(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}
