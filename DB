@@ -1,0 +1,85 @@
+drop database sistemaPedidos;
+-- Creación de la base de datos
+CREATE DATABASE sistemaPedidos;
+USE sistemaPedidos;
+
+-- Tabla Usuarios
+CREATE TABLE Usuarios (
+    usuarioId INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    telefono VARCHAR(20),
+    direccion TEXT,
+    rol ENUM('admin', 'usuario') DEFAULT 'usuario' NOT NULL
+);
+
+-- Tabla Tipo de Pago
+CREATE TABLE TipoPago (
+    tipoPagoId INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50) NOT NULL
+);
+
+-- Insertar tipos de pago
+INSERT INTO TipoPago (tipo) VALUES ('Tarjeta'), ('Efectivo');
+
+-- Tabla Administradores Restaurante
+CREATE TABLE Administrador (
+    adminId INT AUTO_INCREMENT PRIMARY KEY,
+    usuarioId INT,
+    FOREIGN KEY (usuarioId) REFERENCES Usuarios(usuarioId)
+);
+
+-- Tabla Repartidores
+CREATE TABLE Repartidores (
+    repartidorId INT AUTO_INCREMENT PRIMARY KEY,
+    usuarioId INT,
+    numeroPedido INT,
+    FOREIGN KEY (usuarioId) REFERENCES Usuarios(usuarioId)
+);
+
+-- Tabla Platillos
+CREATE TABLE Platillos (
+    platilloId INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) NOT NULL,
+    imagen VARCHAR(255) 
+);
+
+-- Tabla Bebidas
+CREATE TABLE Bebidas (
+    bebidaId INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) NOT NULL,
+    imagen VARCHAR(255) 
+);
+
+-- Tabla Ordenes
+CREATE TABLE Ordenes (
+    ordenId INT AUTO_INCREMENT PRIMARY KEY,
+    usuarioId INT,
+    repartidorId INT,
+    tipoPagoId INT,
+    fechaOrden TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total DECIMAL(10, 2),
+    estado ENUM('aceptado', 'en proceso', 'rechazado') DEFAULT 'en proceso',
+    FOREIGN KEY (usuarioId) REFERENCES Usuarios(usuarioId),
+    FOREIGN KEY (repartidorId) REFERENCES Repartidores(repartidorId),
+    FOREIGN KEY (tipoPagoId) REFERENCES TipoPago(tipoPagoId)
+);
+
+-- Tabla Detalles de Ordenes
+CREATE TABLE DetallesOrden (
+    detalle_ordenId INT AUTO_INCREMENT PRIMARY KEY,
+    ordenId INT,
+    platilloId INT,
+    bebidaId INT,
+    cantidad INT,
+    FOREIGN KEY (ordenId) REFERENCES Ordenes(ordenId),
+    FOREIGN KEY (platilloId) REFERENCES Platillos(platilloId),
+    FOREIGN KEY (bebidaId) REFERENCES Bebidas(bebidaId)
+);
