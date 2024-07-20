@@ -2,7 +2,7 @@ const connectDB = require('../config/db');
 const multer = require('multer');
 const path = require('path');
 
-// Configuración de Multer para sbir imagenes
+// Configuración de Multer para subir imágenes
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
@@ -28,7 +28,6 @@ const getPlatillos = async (req, res) => {
     res.status(500).json({ msg: 'Error al obtener los platillos' });
   }
 };
-
 
 const getPlatilloById = async (req, res) => {
   const { id } = req.params;

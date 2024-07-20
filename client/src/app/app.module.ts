@@ -4,6 +4,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Asegúrate de importar ReactiveFormsModule
 import { HttpClientModule } from '@angular/common/http';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import {MatButtonModule} from '@angular/material/button';
 
 
 //Components
@@ -14,6 +15,11 @@ import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesi
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
+import { AddEditPlatillosComponent } from './components/usuarios/add-edit-platillos/add-edit-platillos.component';
+import { ListPlatillosComponent } from './components/usuarios/list-platillos/list-platillos.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AddEditBebidasComponent } from './components/usuarios/add-edit-bebidas/add-edit-bebidas.component';
+import { ListBebidasComponent } from './components/usuarios/list-bebidas/list-bebidas.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +28,11 @@ import { HomeComponent } from './components/home/home.component';
     IniciarSesionComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    AddEditPlatillosComponent,
+    ListPlatillosComponent,
+    AddEditBebidasComponent,
+    ListBebidasComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +40,8 @@ import { HomeComponent } from './components/home/home.component';
     HttpClientModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule // Añadir ReactiveFormsModule a la lista de imports
+    FormsModule,
+    MatButtonModule // Añadir ReactiveFormsModule a la lista de imports
 
   ],
   providers: [
@@ -38,6 +49,7 @@ import { HomeComponent } from './components/home/home.component';
   provideClientHydration(
       
     ),
+  provideAnimationsAsync(),
     
   ],
   bootstrap: [AppComponent]

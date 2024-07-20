@@ -2,8 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors'); 
 const connectDB = require('./config/db');
-const cors = require('cors');
-
 
 const path = require('path');
 
@@ -23,12 +21,10 @@ app.use(express.json());
 app.use(cors());
 
 
-// Configuración de CORS
-app.use(cors());
-
 // Routes 
 app.use('/api/users', require('./routes/auth.routes'));
 app.use('/api/platillos', require('./routes/platillo.routes'));
+app.use('/api/bebidas', require('./routes/bebida.routes'));
 
 
 const PORT = process.env.PORT || 3002;
