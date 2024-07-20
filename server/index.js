@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
+const cors = require('cors');
 
-// Asegúrate de que esta línea esté justo después de cargar dotenv
 console.log('JWT_SECRET:', process.env.JWT_SECRET);
 
 const app = express();
@@ -12,6 +12,7 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Routes 
 app.use('/api/users', require('./routes/auth.routes'));

@@ -26,14 +26,14 @@ exports.registroUsuario = async (req, res) => {
     const token = jwt.sign({ usuarioId, nombre, apellidos, username, email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Enviar respuesta con mensaje y token
+    console.log('usuario registrado exitosamente')
     res.status(201).json({ message: 'Usuario registrado exitosamente', token });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error(err.message);
+    console.log(error);
+    res.status(500).json({ message: 'Ocurrió un error al registrar el usuario' });
   }
 };
-
-
-
 
 exports.iniciarSesion = async (req, res) => {
   const { email, password } = req.body;
@@ -41,7 +41,7 @@ exports.iniciarSesion = async (req, res) => {
   try {
     const connection = await db();
 
-    // Check if user exists
+    // Verifica si el usuario existe
     const [rows] = await connection.execute('SELECT * FROM Usuarios WHERE email = ?', [email]);
     if (rows.length === 0) {
       return res.status(400).json({ message: 'Correo Electrónico o Contraseña incorrectos' });
@@ -49,17 +49,18 @@ exports.iniciarSesion = async (req, res) => {
 
     const usuario = rows[0];
 
-    // Check password
+    // Verifica la contraseña
     const isMatch = await bcrypt.compare(password, usuario.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Correo Electrónico o contraseña invalidos' });
+      return res.status(400).json({ message: 'Correo Electrónico o Contraseña incorrectos' });
     }
 
-    // Generate JWT token
+    // Genera el token JWT
     const token = jwt.sign({ UsuarioId: usuario.id, nombre: usuario.nombre, email: usuario.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.json({ token });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error(err.message);
+    res.status(500).json({ message: 'Ocurrió un error al iniciar sesión' });
   }
 };
