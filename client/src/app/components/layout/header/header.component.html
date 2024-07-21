@@ -1,10 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-
   <div class="container-fluid">
     <a href="home">
-      <h1 class="title">Porita Coffe </h1>
+      <h1 class="title">Porita Coffe</h1>
     </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor04">
@@ -23,14 +22,18 @@
         <li class="nav-item">
           <a class="nav-link" href="/platillos">Platillos</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="iniciar-sesion">Inciar sesion</a>
+        <li class="nav-item" *ngIf="!usuarioAutenticado">
+          <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
         </li>
       </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
+      <div *ngIf="usuarioAutenticado" class="navbar-nav ms-auto">
+        <span class="navbar-text me-3">Bienvenido, {{ nombreUsuario }}</span>
+        <a class="nav-link" (click)="cerrarSesion()">Cerrar sesión</a>
+      </div>
     </div>
   </div>
 </nav>

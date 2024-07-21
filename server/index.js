@@ -27,6 +27,7 @@ app.use('/api/platillos', require('./routes/platillo.routes'));
 app.use('/api/bebidas', require('./routes/bebida.routes'));
 
 
+
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {
