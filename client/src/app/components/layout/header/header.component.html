@@ -30,6 +30,9 @@
         <input class="form-control me-sm-2" type="search" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
+      <li class="nav-item">
+        <a class="nav-link" href="/carrito">Carro</a>
+      </li>
       <div *ngIf="usuarioAutenticado" class="navbar-nav ms-auto">
         <span class="navbar-text me-3">Bienvenido, {{ nombreUsuario }}</span>
         <a class="nav-link" (click)="cerrarSesion()">Cerrar sesión</a>

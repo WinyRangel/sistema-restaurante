@@ -3,6 +3,7 @@ import { PlatilloService } from '../../../services/platillo.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Platillo } from '../../../interfaces/Platillo';
+import { ItemCarrito } from '../../../Interfaces/ItemCarrito';
 
 
 @Component({
@@ -54,5 +55,56 @@ export class ListPlatillosComponent {
   editPlatillo(id: number) {
     this.router.navigate(['edit-platillo/', id]);
   }
+
+  agregarCarrito(platillo : Platillo){
+    //console.log(platillo)
+    let iCarrito: ItemCarrito = {//platillo k se esta agregando
+      platilloId: platillo.platilloId,
+      nombre: platillo.nombre,
+      descripcion: platillo.descripcion,
+      precio: platillo.precio,
+      imagen: platillo.imagen, 
+      cantidad: 1
+    }
+    if(localStorage.getItem("carrito") === null){
+      let carrito: ItemCarrito[] = [];
+      carrito.push(iCarrito);
+      localStorage.setItem("carrito", JSON.stringify(carrito));//crear y almacenar
+    }else{
+      //leer contenido de carrio
+      let carritoStorage = localStorage.getItem("carrito") as string;
+      let carrito = JSON.parse(carritoStorage);
+
+      //verificar los elementos del carro
+      let index = -1;
+      for(let i = 0; i<carrito.length; i++){
+        let itemC: ItemCarrito = carrito[i];
+        if(iCarrito.platilloId === itemC.platilloId){
+          index=1;//captura la posicion del producto
+          break; //que ya no busque el platillo
+        }
+      }
+
+      if(index === -1){//si no encontro del platillo por id
+        carrito.push(iCarrito);
+        localStorage.setItem("carrito", JSON.stringify(carrito));//crear y almacenar
+      }else{
+        let itemCarrito: ItemCarrito = carrito[index];
+        itemCarrito.cantidad++;//para incremente la cantidad
+        carrito[index] = itemCarrito;
+        localStorage.setItem("carrito", JSON.stringify(carrito));//crear y almacenar
+      }
+
+    }
+
+
+    
+    Swal.fire(
+      'Agregado al carrito!',
+      'El platillo ha sido agregado',
+      'success'
+    );
+  }
+  
 
 }

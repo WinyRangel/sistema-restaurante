@@ -20,6 +20,7 @@ import { ListPlatillosComponent } from './components/usuarios/list-platillos/lis
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AddEditBebidasComponent } from './components/usuarios/add-edit-bebidas/add-edit-bebidas.component';
 import { ListBebidasComponent } from './components/usuarios/list-bebidas/list-bebidas.component';
+import { CarritoComponent } from './components/usuarios/carrito/carrito.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ListBebidasComponent } from './components/usuarios/list-bebidas/list-be
     AddEditPlatillosComponent,
     ListPlatillosComponent,
     AddEditBebidasComponent,
-    ListBebidasComponent
+    ListBebidasComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,

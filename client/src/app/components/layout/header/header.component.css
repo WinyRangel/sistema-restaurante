@@ -7,3 +7,7 @@
 a {
   color: orange;
 }
+.nav-link .bi-cart {
+  font-size: 1.2em; /* Ajusta el tamaño del icono */
+  color: orange;   /* Ajusta el color del icono */
+}

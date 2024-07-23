@@ -1,0 +1,19 @@
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let platillo of listaItemsCarrito">
+            <td>{{platillo.nombre}}</td>
+            <td>{{platillo.precio}}</td>
+            <td>{{platillo.cantidad}}</td>
+            <td>{{platillo.cantidad! * platillo.precio!}}</td>
+        </tr>
+    </tbody>
+</table>
+<button class="btn btn-danger" (click)="vaciarCarrito()">vaciar carrito</button>
