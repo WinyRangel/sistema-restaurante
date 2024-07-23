@@ -1,26 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ItemCarrito } from '../../../Interfaces/ItemCarrito';
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
-  styleUrl: './carrito.component.css'
+  styleUrls: ['./carrito.component.css']
 })
-export class CarritoComponent {
+export class CarritoComponent implements OnInit {
 
-  listaItemsCarrito: ItemCarrito[] | undefined;
+  listaItemsCarrito: ItemCarrito[] = [];
+  total: number = 0;
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     let carritoStorage = localStorage.getItem("carrito") as string;
-    let carrito = JSON.parse(carritoStorage);
-    this.listaItemsCarrito = carrito;
+    this.listaItemsCarrito = carritoStorage ? JSON.parse(carritoStorage) : [];
+    this.calcularTotal();
+  }
+
+  calcularTotal() {
+    this.total = this.listaItemsCarrito.reduce((acc, item) => {
+      return acc + (item.precio * item.cantidad);
+    }, 0);
   }
 
   vaciarCarrito() {
     localStorage.removeItem("carrito");
-    this.listaItemsCarrito = []; // Actualiza la vista
-
+    this.listaItemsCarrito = [];
+    this.total = 0; // Actualiza el total también
   }
-  
-
 }

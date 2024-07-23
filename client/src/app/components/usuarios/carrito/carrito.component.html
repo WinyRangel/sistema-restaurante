@@ -1,19 +1,26 @@
-<table>
+<table class="table table-striped">
     <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-        </tr>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Subtotal</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let platillo of listaItemsCarrito">
-            <td>{{platillo.nombre}}</td>
-            <td>{{platillo.precio}}</td>
-            <td>{{platillo.cantidad}}</td>
-            <td>{{platillo.cantidad! * platillo.precio!}}</td>
-        </tr>
+      <tr *ngFor="let item of listaItemsCarrito">
+        <td>{{item.nombre}}</td>
+        <td>{{item.precio | currency}}</td>
+        <td>{{item.cantidad}}</td>
+        <td>{{item.cantidad * item.precio | currency}}</td>
+      </tr>
     </tbody>
-</table>
-<button class="btn btn-danger" (click)="vaciarCarrito()">vaciar carrito</button>
+  </table>
+  
+  <!-- Muestra el total -->
+  <div class="total mt-3">
+    <h4>Total: {{ total | currency }}</h4>
+  </div>
+  
+  <button class="btn btn-danger" (click)="vaciarCarrito()">Vaciar carrito</button>
+  
