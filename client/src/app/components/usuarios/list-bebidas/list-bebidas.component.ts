@@ -1,26 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BebidaService } from '../../../services/bebida.service';
+import { AuthService } from '../../../services/auth.service'; // Importa el AuthService
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Bebida } from '../../../Interfaces/Bebida';
-import { ItemCarrito } from '../../../Interfaces/ItemCarrito';
 
 @Component({
   selector: 'app-list-bebidas',
   templateUrl: './list-bebidas.component.html',
   styleUrls: ['./list-bebidas.component.css']
 })
-export class ListBebidasComponent {
-
+export class ListBebidasComponent implements OnInit {
   listBebidas: Bebida[] = [];
 
-  constructor(private _bebidaService: BebidaService, private router: Router){}
+  constructor(private _bebidaService: BebidaService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.getListBebidas();
   }
 
-  getListBebidas(){
+  getListBebidas() {
     this._bebidaService.getBebidas().subscribe((data) => {
       this.listBebidas = data;
     });
@@ -54,37 +53,20 @@ export class ListBebidasComponent {
     this.router.navigate(['edit-bebida/', id]);
   }
 
-  agregarCarrito(bebida: Bebida) {
-    let iCarrito: ItemCarrito = {
-      bebidaId: bebida.bebidaId,
-      nombre: bebida.nombre,
-      descripcion: bebida.descripcion,
-      precio: bebida.precio,
-      imagen: bebida.imagen, 
-      cantidad: 1
-    };
-
-    this.actualizarCarrito(iCarrito, 'bebida');
-  }
-
-  private actualizarCarrito(item: ItemCarrito, tipo: 'platillo' | 'bebida') {
-    let carritoStorage = localStorage.getItem("carrito") as string;
-    let carrito: ItemCarrito[] = carritoStorage ? JSON.parse(carritoStorage) : [];
-
-    let index = carrito.findIndex(i => i.platilloId === item.platilloId || i.bebidaId === item.bebidaId);
-
-    if (index === -1) {
-      carrito.push(item);
-    } else {
-      carrito[index].cantidad++;
+  agregarCarrito(bebidaId: number) {
+    const token = this.authService.getToken();
+    if (!token) {
+      Swal.fire('Error', 'Debes iniciar sesión para agregar artículos al carrito', 'error');
+      return;
     }
+    
+    const decodedToken = this.authService.parseJwt(token);
+    const carritoId = decodedToken.carritoId; // Obtén el carritoId del token decodificado
 
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-
-    Swal.fire(
-      'Agregado al carrito!',
-      `La ${tipo} ha sido agregada`,
-      'success'
-    );
+    this._bebidaService.agregarCarrito({ carritoId, bebidaId, cantidad: 1 }).subscribe(() => {
+      Swal.fire('¡Éxito!', 'Bebida agregada al carrito', 'success');
+    }, (error) => {
+      Swal.fire('Error', 'No se pudo agregar la bebida al carrito', 'error');
+    });
   }
 }

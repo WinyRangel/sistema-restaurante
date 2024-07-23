@@ -30,4 +30,8 @@ export class BebidaService {
   deleteBebida(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  agregarCarrito(item: { carritoId: number, bebidaId: number, cantidad: number }): Observable<any> {
+    return this.http.post<any>('http://localhost:3002/api/carrito', item);
+  }
 }
