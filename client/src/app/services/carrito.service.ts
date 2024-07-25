@@ -15,4 +15,11 @@ mostrarCarrito(carritoId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/mostrar/${carritoId}`);
 }
 
+eliminarArticulo(itemCarritoId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/eliminar/${itemCarritoId}`);
+}
+
+vaciarCarrito(carritoId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/vaciar/${carritoId}`);
+  }
 }
