@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BebidaService } from '../../../services/bebida.service';
-import { AuthService } from '../../../services/auth.service'; // Importa el AuthService
+import { AuthService } from '../../../services/auth.service'; 
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Bebida } from '../../../Interfaces/Bebida';
@@ -54,14 +54,11 @@ export class ListBebidasComponent implements OnInit {
   }
 
   agregarCarrito(bebidaId: number) {
-    const token = this.authService.getToken();
-    if (!token) {
+    const carritoId = this.authService.getCarritoId();
+    if (!carritoId) {
       Swal.fire('Error', 'Debes iniciar sesión para agregar artículos al carrito', 'error');
       return;
     }
-    
-    const decodedToken = this.authService.parseJwt(token);
-    const carritoId = decodedToken.carritoId; // Obtén el carritoId del token decodificado
 
     this._bebidaService.agregarCarrito({ carritoId, bebidaId, cantidad: 1 }).subscribe(() => {
       Swal.fire('¡Éxito!', 'Bebida agregada al carrito', 'success');
@@ -69,4 +66,10 @@ export class ListBebidasComponent implements OnInit {
       Swal.fire('Error', 'No se pudo agregar la bebida al carrito', 'error');
     });
   }
+
+  mostrarUserId() {
+    const userId = this.authService.getUserId();
+    console.log('User ID:', userId);
+  }
+
 }

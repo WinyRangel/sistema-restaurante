@@ -54,14 +54,11 @@ export class ListPlatillosComponent implements OnInit {
   }
 
   agregarCarrito(platilloId: number) {
-    const token = this.authService.getToken();
-    if (!token) {
+    const carritoId = this.authService.getCarritoId();
+    if (!carritoId) {
       Swal.fire('Error', 'Debes iniciar sesión para agregar artículos al carrito', 'error');
       return;
     }
-    
-    const decodedToken = this.authService.parseJwt(token);
-    const carritoId = decodedToken.carritoId; // Obtén el carritoId del token decodificado
 
     this._platilloService.agregarCarrito({ carritoId, platilloId, cantidad: 1 }).subscribe(() => {
       Swal.fire('¡Éxito!', 'Platillo agregado al carrito', 'success');

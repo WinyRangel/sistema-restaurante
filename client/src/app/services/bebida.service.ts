@@ -34,4 +34,6 @@ export class BebidaService {
   agregarCarrito(item: { carritoId: number, bebidaId: number, cantidad: number }): Observable<any> {
     return this.http.post<any>('http://localhost:3002/api/carrito', item);
   }
+
+  
 }

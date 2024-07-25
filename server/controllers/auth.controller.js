@@ -67,9 +67,8 @@ exports.iniciarSesion = async (req, res) => {
     console.log('Carrito del usuario:', carritoId);
 
     // Genera el token JWT
-    const token = jwt.sign({ UsuarioId: usuario.id, nombre: usuario.nombre, email: usuario.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ usuarioId: usuario.usuarioId, nombre: usuario.nombre, email: usuario.email, carritoId: carritoId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    
     res.json({ token });
 
     // Enviar respuesta 
@@ -78,7 +77,7 @@ exports.iniciarSesion = async (req, res) => {
     console.error(err.message);
     res.status(500).json({ message: 'Ocurrió un error al iniciar sesión' });
   }
-
 };
+
 
 
