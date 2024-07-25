@@ -3,6 +3,10 @@ drop database sistemaPedidos;
 CREATE DATABASE sistemaPedidos;
 USE sistemaPedidos;
 
+-- Creación de la base de datos
+CREATE DATABASE sistemaPedidos;
+USE sistemaPedidos;
+
 -- Tabla Usuarios
 CREATE TABLE Usuarios (
     usuarioId INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,6 +19,7 @@ CREATE TABLE Usuarios (
     direccion TEXT,
     rol ENUM('admin', 'usuario') DEFAULT 'usuario' NOT NULL
 );
+
 
 -- Tabla Tipo de Pago
 CREATE TABLE TipoPago (
@@ -49,6 +54,7 @@ CREATE TABLE Platillos (
     imagen VARCHAR(255) 
 );
 
+
 -- Tabla Bebidas
 CREATE TABLE Bebidas (
     bebidaId INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,7 +72,6 @@ CREATE TABLE Ordenes (
     tipoPagoId INT,
     fechaOrden TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total DECIMAL(10, 2),
-    estado ENUM('aceptado', 'en proceso', 'rechazado') DEFAULT 'en proceso',
     FOREIGN KEY (usuarioId) REFERENCES Usuarios(usuarioId),
     FOREIGN KEY (repartidorId) REFERENCES Repartidores(repartidorId),
     FOREIGN KEY (tipoPagoId) REFERENCES TipoPago(tipoPagoId)
@@ -82,4 +87,22 @@ CREATE TABLE DetallesOrden (
     FOREIGN KEY (ordenId) REFERENCES Ordenes(ordenId),
     FOREIGN KEY (platilloId) REFERENCES Platillos(platilloId),
     FOREIGN KEY (bebidaId) REFERENCES Bebidas(bebidaId)
+);
+
+
+CREATE TABLE Carritos (
+  carritoId INT AUTO_INCREMENT PRIMARY KEY,
+  usuarioId INT,
+  FOREIGN KEY (usuarioId) REFERENCES Usuarios(usuarioId)
+);
+
+CREATE TABLE ItemsCarrito (
+  itemCarritoId INT AUTO_INCREMENT PRIMARY KEY,
+  carritoId INT,
+  bebidaId INT,
+  platilloId INT,
+  cantidad INT,
+  FOREIGN KEY (carritoId) REFERENCES Carritos(carritoId),
+  FOREIGN KEY (bebidaId) REFERENCES Bebidas(bebidaId),
+  FOREIGN KEY (platilloId) REFERENCES Platillos(platilloId)
 );
