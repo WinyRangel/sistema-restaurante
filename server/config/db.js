@@ -6,9 +6,9 @@ const connectDB = async () => {
     const connection = await mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'alyrojas',
+      password: '',
       database: 'sistemaPedidos',
-      port: 3307
+      port: 3306
     });
     console.log('Conexión a base de datos exitosa');
     return connection;
