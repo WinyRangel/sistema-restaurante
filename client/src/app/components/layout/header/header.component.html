@@ -1,21 +1,13 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a href="home">
-      <h1 class="title">Porita Coffe</h1>
+    <a href="inicio">
+      <img src="https://i.ibb.co/R6Xh8rd/logo-removebg-preview.png" alt="" width="100" height="101">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor04">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Inicio</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="bebidas">Bebidas</a>
         </li>
@@ -26,16 +18,15 @@
           <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
-      <li class="nav-item">
-        <a class="nav-link" href="/carrito">Carro</a>
-      </li>
+  
       <div *ngIf="usuarioAutenticado" class="navbar-nav ms-auto">
         <span class="navbar-text me-3">Bienvenido, {{ nombreUsuario }}</span>
-        <a class="nav-link" (click)="cerrarSesion()">Cerrar sesión</a>
+        <a class="nav-link" href="/carrito">
+          <i class="fa-solid fa-cart-shopping fa-lg"></i>  
+        </a>
+        <a class="nav-link" (click)="cerrarSesion()" alt="Cerrar sesión">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
       </div>
     </div>
   </div>

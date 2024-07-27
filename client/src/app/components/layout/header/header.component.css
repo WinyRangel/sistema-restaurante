@@ -1,13 +1,66 @@
+/* Fuente y colores generales */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .title {
-    font-family: 'Lobster', cursive;
-    /*font-family: 'Srisakdi', cursive;*/
-    color: orange;
-  }
-  
-a {
+  font-family: 'Lobster', cursive;
   color: orange;
 }
-.nav-link .bi-cart {
-  font-size: 1.2em; /* Ajusta el tamaño del icono */
-  color: orange;   /* Ajusta el color del icono */
+
+/* Enlaces */
+a {
+  color: orange;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ffbb00; /* Color de hover para todos los enlaces */
+}
+
+/* Navbar */
+.navbar {
+  background-color: #f8f9fa; /* Color de fondo de la navbar */
+}
+
+.navbar .nav-link.active {
+  color: #ffbb00; /* Color especial para el enlace activo */
+}
+
+.navbar .nav-link {
+  color: orange;
+  transition: color 0.3s;
+}
+
+.navbar .nav-link:hover {
+  color: #ffbb00; /* Color de hover */
+}
+
+/* Icono del carrito de compras */
+.nav-link .fa-cart-shopping {
+  font-size: 1.2em;
+  color: orange;
+  transition: color 0.3s;
+}
+
+.nav-link .fa-cart-shopping:hover {
+  color: #ffbb00; /* Color de hover para el icono del carrito */
+}
+
+/* Texto de bienvenida y cierre de sesión */
+.navbar-text {
+  color: orange;
+  font-family: 'Lobster', cursive;
+}
+
+.navbar .nav-link:active,
+.navbar .nav-link:focus {
+  color: #ffbb00;
+}
+
+/* Botón de navegación (responsive) */
+.navbar-toggler {
+  border-color: orange;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,187,0, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
