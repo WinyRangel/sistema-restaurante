@@ -21,6 +21,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AddEditBebidasComponent } from './components/usuarios/add-edit-bebidas/add-edit-bebidas.component';
 import { ListBebidasComponent } from './components/usuarios/list-bebidas/list-bebidas.component';
 import { CarritoComponent } from './components/usuarios/carrito/carrito.component';
+import { SobreNosotrosComponent } from './footer/sobre-nosotros/sobre-nosotros.component';
+import { FaqsComponent } from './footer/faqs/faqs.component';
+import { ContactoComponent } from './footer/contacto/contacto.component';
+import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { CarritoComponent } from './components/usuarios/carrito/carrito.componen
     ListPlatillosComponent,
     AddEditBebidasComponent,
     ListBebidasComponent,
-    CarritoComponent
+    CarritoComponent,
+    SobreNosotrosComponent,
+    FaqsComponent,
+    ContactoComponent,
+    MapaSitioComponent
   ],
   imports: [
     BrowserModule,

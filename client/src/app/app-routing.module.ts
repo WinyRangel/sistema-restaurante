@@ -9,6 +9,10 @@ import { AddEditPlatillosComponent } from './components/usuarios/add-edit-platil
 import { AddEditBebidasComponent } from './components/usuarios/add-edit-bebidas/add-edit-bebidas.component';
 import { ListBebidasComponent } from './components/usuarios/list-bebidas/list-bebidas.component';
 import { CarritoComponent } from './components/usuarios/carrito/carrito.component';
+import { ContactoComponent } from './footer/contacto/contacto.component';
+import { FaqsComponent } from './footer/faqs/faqs.component';
+import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
+import { SobreNosotrosComponent } from './footer/sobre-nosotros/sobre-nosotros.component';
 
 const routes: Routes = [
 
@@ -24,6 +28,10 @@ const routes: Routes = [
   { path: 'añadir-bebida', component: AddEditBebidasComponent },
   { path: 'edit-bebida/:id', component: AddEditBebidasComponent },
   { path: 'carrito', component: CarritoComponent},
+  { path: 'contacto', component: ContactoComponent},
+  { path: 'faqs', component: FaqsComponent},
+  { path: 'mapa-sitio', component: MapaSitioComponent},
+  { path: 'sobre-nosotros', component: SobreNosotrosComponent},
   { path: '**', redirectTo: 'error404'}
 
 ];
