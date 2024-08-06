@@ -22,6 +22,10 @@ import { AddEditBebidasComponent } from './components/administrador/add-edit-beb
 import { ListBebidasComponent } from './components/administrador/list-bebidas/list-bebidas.component';
 import { CarritoComponent } from './components/usuarios/carrito/carrito.component';
 import { ListarPlatillosComponent } from './components/usuarios/listar-platillos/listar-platillos.component';
+import { SobreNosotrosComponent } from './footer/sobre-nosotros/sobre-nosotros.component';
+import { FaqsComponent } from './footer/faqs/faqs.component';
+import { ContactoComponent } from './footer/contacto/contacto.component';
+import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { ListarPlatillosComponent } from './components/usuarios/listar-platillos
     AddEditBebidasComponent,
     ListBebidasComponent,
     CarritoComponent,
-    ListarPlatillosComponent
+    ListarPlatillosComponent,
+    SobreNosotrosComponent,
+    FaqsComponent,
+    ContactoComponent,
+    MapaSitioComponent
   ],
   imports: [
     BrowserModule,
