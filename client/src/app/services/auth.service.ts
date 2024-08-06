@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 export class AuthService {
   private urlRegistro = 'http://localhost:3002/api/users/registro';
   private url = 'http://localhost:3002/api/users/login';
+  private urlUsuarios = 'http://localhost:3002/api/users/usuarios';
+
+
   private authStatusListener = new Subject<boolean>();  // Subject para el estado de autenticación
   private carritoId: number | null = null;  // Almacenar carritoId
 
@@ -98,4 +101,11 @@ export class AuthService {
     }
     return null;
   }
+
+  obtenerUsuarios(): Observable<any> {
+    return this.http.get<any>(this.urlUsuarios).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 }

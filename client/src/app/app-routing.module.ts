@@ -13,6 +13,7 @@ import { ContactoComponent } from './footer/contacto/contacto.component';
 import { FaqsComponent } from './footer/faqs/faqs.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 import { SobreNosotrosComponent } from './footer/sobre-nosotros/sobre-nosotros.component';
+import { GestionUsuariosComponent } from './components/admin/gestion-usuarios/gestion-usuarios.component';
 
 const routes: Routes = [
 
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'faqs', component: FaqsComponent},
   { path: 'mapa-sitio', component: MapaSitioComponent},
   { path: 'sobre-nosotros', component: SobreNosotrosComponent},
+  { path: 'lista-usuarios', component: GestionUsuariosComponent},
   { path: '**', redirectTo: 'error404'}
 
 ];

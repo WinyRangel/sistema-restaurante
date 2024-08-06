@@ -25,6 +25,7 @@ import { SobreNosotrosComponent } from './footer/sobre-nosotros/sobre-nosotros.c
 import { FaqsComponent } from './footer/faqs/faqs.component';
 import { ContactoComponent } from './footer/contacto/contacto.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
+import { GestionUsuariosComponent } from './components/admin/gestion-usuarios/gestion-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
     SobreNosotrosComponent,
     FaqsComponent,
     ContactoComponent,
-    MapaSitioComponent
+    MapaSitioComponent,
+    GestionUsuariosComponent
   ],
   imports: [
     BrowserModule,

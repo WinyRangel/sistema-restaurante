@@ -80,4 +80,19 @@ exports.iniciarSesion = async (req, res) => {
 };
 
 
+exports.obtenerUsuarios = async (req, res) => {
+  try {
+    const connection = await db();
+    const [rows] = await connection.execute('SELECT nombre, apellidos, username, email FROM usuarios');
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'No hay usuarios' });
+    }
+    res.json({ usuarios: rows });
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'Ocurrió un error al obtener los usuarios' });
+  }
+};
 
