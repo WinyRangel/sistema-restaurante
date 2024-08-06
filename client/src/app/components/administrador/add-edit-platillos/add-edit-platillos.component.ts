@@ -67,11 +67,11 @@ export class AddEditPlatillosComponent implements OnInit {
       //enviar a platillos en ambos casos
       if (this.operacion) {
         this.platilloService.createPlatillo(formData).subscribe(() => {
-          this.router.navigate(['/platillos']);
+          this.router.navigate(['/listar-platillos']);
         });
       } else {
         this.platilloService.updatePlatillo(this.platilloId, formData).subscribe(() => {
-          this.router.navigate(['/platillos']);
+          this.router.navigate(['/listar-platillos']);
         });
       }
     }

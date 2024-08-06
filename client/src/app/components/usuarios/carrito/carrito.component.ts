@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../../services/carrito.service';
 import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-carrito',
@@ -11,8 +12,12 @@ import Swal from 'sweetalert2';
 export class CarritoComponent implements OnInit {
   carritoItems: any[] = [];
   total: number = 0; 
+  private carritoService: CarritoService;
 
-  constructor(private carritoService: CarritoService, private authService: AuthService) { }
+
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.carritoService = CarritoService.getInstance(this.http);
+   }
 
   ngOnInit(): void {
     this.mostrarCarrito();

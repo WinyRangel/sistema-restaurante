@@ -15,12 +15,13 @@ import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesi
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { AddEditPlatillosComponent } from './components/usuarios/add-edit-platillos/add-edit-platillos.component';
-import { ListPlatillosComponent } from './components/usuarios/list-platillos/list-platillos.component';
+import { AddEditPlatillosComponent } from './components/administrador/add-edit-platillos/add-edit-platillos.component';
+import { ListPlatillosComponent } from './components/administrador/list-platillos/list-platillos.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { AddEditBebidasComponent } from './components/usuarios/add-edit-bebidas/add-edit-bebidas.component';
-import { ListBebidasComponent } from './components/usuarios/list-bebidas/list-bebidas.component';
+import { AddEditBebidasComponent } from './components/administrador/add-edit-bebidas/add-edit-bebidas.component';
+import { ListBebidasComponent } from './components/administrador/list-bebidas/list-bebidas.component';
 import { CarritoComponent } from './components/usuarios/carrito/carrito.component';
+import { ListarPlatillosComponent } from './components/usuarios/listar-platillos/listar-platillos.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CarritoComponent } from './components/usuarios/carrito/carrito.componen
     ListPlatillosComponent,
     AddEditBebidasComponent,
     ListBebidasComponent,
-    CarritoComponent
+    CarritoComponent,
+    ListarPlatillosComponent
   ],
   imports: [
     BrowserModule,
