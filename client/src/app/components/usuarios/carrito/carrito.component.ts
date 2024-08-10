@@ -3,6 +3,8 @@ import { CarritoService } from '../../../services/carrito.service';
 import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { PlatilloService } from '../../../services/platillo.service';
+import { BebidaService } from '../../../services/bebida.service';
 
 @Component({
   selector: 'app-carrito',
@@ -15,7 +17,8 @@ export class CarritoComponent implements OnInit {
   private carritoService: CarritoService;
 
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient, private authService: AuthService, 
+    private platilloService: PlatilloService, private bebidaService: BebidaService) {
     this.carritoService = CarritoService.getInstance(this.http);
    }
 
@@ -50,29 +53,67 @@ export class CarritoComponent implements OnInit {
   }
 
   eliminarArticulo(itemCarritoId: number): void {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "¡No podrás deshacer esta acción!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.carritoService.eliminarArticulo(itemCarritoId).subscribe(
-          () => {
-            Swal.fire('Éxito', 'El artículo ha sido actualizado', 'success');
-            this.mostrarCarrito(); // Actualiza la lista del carrito después de la modificación
-          },
-          (error) => {
-            console.error('Error al modificar el artículo', error);
-            Swal.fire('Error', 'No se pudo actualizar el artículo', 'error');
-          }
-        );
-      }
-    });
+    const item = this.carritoItems.find(item => item.itemCarritoId === itemCarritoId);
+  
+    if (!item) {
+      Swal.fire('Error', 'Artículo no encontrado', 'error');
+      return;
+    }
+  
+    if (item.cantidad > 1) {
+      // Si la cantidad es mayor a 1, solo actualiza la cantidad
+      this.actualizarCantidad(item.itemCarritoId, item.cantidad - 1);
+    } else {
+      // Si la cantidad es 1, muestra la alerta para confirmar la eliminación
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás deshacer esta acción!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.carritoService.eliminarArticulo(itemCarritoId).subscribe(
+            () => {
+              Swal.fire('Éxito', 'El artículo ha sido eliminado', 'success');
+              this.mostrarCarrito(); // Actualiza la lista del carrito después de la eliminación
+            },
+            (error) => {
+              console.error('Error al eliminar el artículo', error);
+              Swal.fire('Error', 'No se pudo eliminar el artículo', 'error');
+            }
+          );
+        }
+      });
+    }
   }
+  
+  // eliminarArticulo(itemCarritoId: number): void {
+  //   Swal.fire({
+  //     title: '¿Estás seguro?',
+  //     text: "¡No podrás deshacer esta acción!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Sí, eliminar'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       this.carritoService.eliminarArticulo(itemCarritoId).subscribe(
+  //         () => {
+  //           Swal.fire('Éxito', 'El artículo ha sido actualizado', 'success');
+  //           this.mostrarCarrito(); // Actualiza la lista del carrito después de la modificación
+  //         },
+  //         (error) => {
+  //           console.error('Error al modificar el artículo', error);
+  //           Swal.fire('Error', 'No se pudo actualizar el artículo', 'error');
+  //         }
+  //       );
+  //     }
+  //   });
+  // }
 
 
   vaciarCarrito(): void {
@@ -105,6 +146,19 @@ export class CarritoComponent implements OnInit {
       }
     });
   }
+
+  actualizarCantidad(itemCarritoId: number, cantidad: number): void {
+    this.carritoService.actualizarCantidadArticulo(itemCarritoId, cantidad).subscribe(
+      response => {
+        console.log('Cantidad actualizada:', response);
+        this.mostrarCarrito();
+      },
+      error => {
+        console.error('Error al actualizar la cantidad:', error);
+      }
+    );
+  }
+  
 }
 
 

@@ -6,7 +6,6 @@
       <tr>
         <th>Imagen</th>
         <th>Nombre</th>
-        <th>Cantidad</th>
         <th>Precio</th>
         <th>Total</th>
         <th>Acciones</th>
@@ -16,10 +15,22 @@
       <tr *ngFor="let item of carritoItems">
         <td><img [src]="item.imgPlatillo || item.imgBebida" alt="Imagen del artículo" class="item-img"></td>
         <td>{{ item.platilloNombre || item.bebidaNombre }}</td>
-        <td>{{ item.cantidad }}</td>
         <td>{{ item.precioPlatillo || item.precioBebida | currency }}</td>
         <td>{{ (item.cantidad * (item.precioPlatillo || item.precioBebida)) | currency }}</td>
-        <td><button (click)="eliminarArticulo(item.itemCarritoId)" class="btn btn-danger btn-sm">Eliminar</button></td>
+        <td>
+          <button (click)="eliminarArticulo(item.itemCarritoId)" class="btn btn-danger btn-sm">-</button>
+          <!-- <input style="width:30px; text-align: center;" type="number" [(ngModel)]="item.cantidad" > -->
+
+          <input 
+            type="number" 
+            [(ngModel)]="item.cantidad" 
+            (change)="actualizarCantidad(item.itemCarritoId, item.cantidad)" 
+            style="width: 60px; text-align: center;"
+            min="1" 
+          />
+
+          <button class="btn btn-success btn-sm" (click)="actualizarCantidad(item.itemCarritoId, item.cantidad+1)">+</button>
+        </td>
       </tr>
     </tbody>
     <tfoot>
