@@ -41,4 +41,8 @@
       </tr>
     </tfoot>
   </table>
+  <div class="total-container">
+    <h3>Total: {{ total | currency:'MXN' }}</h3>
+    <button (click)="pagar(total)" class="btn btn-primary">Pagar con PayPal</button>
+  </div>
 </div>

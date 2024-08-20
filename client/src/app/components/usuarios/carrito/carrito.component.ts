@@ -3,6 +3,7 @@ import { CarritoService } from '../../../services/carrito.service';
 import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { PaymentService } from '../../../services/payment.service';
 import { PlatilloService } from '../../../services/platillo.service';
 import { BebidaService } from '../../../services/bebida.service';
 
@@ -17,7 +18,7 @@ export class CarritoComponent implements OnInit {
   private carritoService: CarritoService;
 
 
-  constructor(private http: HttpClient, private authService: AuthService, 
+  constructor(private http: HttpClient, private authService: AuthService, private paymentService: PaymentService, 
     private platilloService: PlatilloService, private bebidaService: BebidaService) {
     this.carritoService = CarritoService.getInstance(this.http);
    }
@@ -146,6 +147,21 @@ export class CarritoComponent implements OnInit {
       }
     });
   }
+
+   
+  pagar(total: number) {
+    this.paymentService.createOrder(total).subscribe(
+      (response) => {
+        // Redirige al usuario a PayPal para completar el pago
+        window.location.href = response.links[1].href;
+      },
+      (error) => {
+        console.error('Error al crear la orden de pago', error);
+        Swal.fire('Error', 'No se pudo crear la orden de pago', 'error');
+      }
+    );
+  }
+  
 
   actualizarCantidad(itemCarritoId: number, cantidad: number): void {
     this.carritoService.actualizarCantidadArticulo(itemCarritoId, cantidad).subscribe(
