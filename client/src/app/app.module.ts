@@ -5,8 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Asegúrate
 import { HttpClientModule } from '@angular/common/http';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import {MatButtonModule} from '@angular/material/button';
-
-
+import { ButtonModule } from 'primeng/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenubarModule } from 'primeng/menubar';
+import { SplitButtonModule } from 'primeng/splitbutton';
 //Components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +28,7 @@ import { SobreNosotrosComponent } from './footer/sobre-nosotros/sobre-nosotros.c
 import { FaqsComponent } from './footer/faqs/faqs.component';
 import { ContactoComponent } from './footer/contacto/contacto.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
+import { SpeedDialModule } from 'primeng/speeddial';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,12 @@ import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    MatButtonModule // Añadir ReactiveFormsModule a la lista de imports
+    ButtonModule,
+    BrowserAnimationsModule,
+    MenubarModule,
+    MatButtonModule, // Añadir ReactiveFormsModule a la lista de imports
+    SpeedDialModule,
+    SplitButtonModule
 
   ],
   providers: [

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 export class HeaderComponent implements OnInit {
   usuarioAutenticado: boolean = false;
   nombreUsuario: string | null = null;
+  rol: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -22,7 +24,8 @@ export class HeaderComponent implements OnInit {
     this.authService.cerrarSesion();
     this.usuarioAutenticado = false;
     this.nombreUsuario = null;
-    this.router.navigate(['/registro']);
+    this.rol = null;
+    this.router.navigate(['/iniciar-sesion']);
   }
 
   estaAutenticado(): boolean {
@@ -33,6 +36,7 @@ export class HeaderComponent implements OnInit {
     this.usuarioAutenticado = this.authService.estaAutenticado();
     if (this.usuarioAutenticado) {
       this.nombreUsuario = this.authService.obtenerNombreUsuario();
+      this.rol = this.authService.obtenerRol();
     }
 
     // Suscríbete al listener de estado de autenticación
@@ -40,10 +44,12 @@ export class HeaderComponent implements OnInit {
       this.usuarioAutenticado = isAuthenticated;
       if (isAuthenticated) {
         this.nombreUsuario = this.authService.obtenerNombreUsuario();
+        this.rol = this.authService.obtenerRol();
       } else {
         this.nombreUsuario = null;
       }
     });
+    
   }
 
   isActive(route: string): boolean {

@@ -8,6 +8,7 @@ import { Platillo } from '../interfaces/Platillo';
 })
 export class PlatilloService {
   private apiUrl = 'http://localhost:3002/api/platillos';
+  private carrito = 'http://localhost:3002/api/carrito/actualizar'
 
   constructor(private http: HttpClient) { }
 
@@ -33,5 +34,13 @@ export class PlatilloService {
 
   agregarCarrito(item: { carritoId: number, platilloId: number, cantidad: number }): Observable<any> {
     return this.http.post<any>('http://localhost:3002/api/carrito', item);
+  }
+
+  actualizarCarrito(data: { carritoId: number, platilloId: number, cantidad: number }): Observable<any> {
+    // Definir la URL para actualizar el carrito
+    const carrito = `http://localhost:3002/api/carrito`;
+
+    // Hacer la solicitud POST al backend
+    return this.http.post(carrito, data);
   }
 }

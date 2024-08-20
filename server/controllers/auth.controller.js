@@ -2,40 +2,31 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../config/db');
 
+
 exports.registroUsuario = async (req, res) => {
   const { nombre, apellidos, username, password, email, telefono, direccion } = req.body;
 
   try {
     const connection = await db();
+    console.log('Usuario registrado con éxito');
 
     // Verifica que el usuario no exista a través del correo
     const [rows] = await connection.execute('SELECT * FROM Usuarios WHERE email = ?', [email]);
     if (rows.length > 0) {
-      return res.status(400).json({ message: 'Este correo ya se encuentra registrado' });
+      return res.status(400).json({ message: 'Usuario ya registrado' });
     }
 
-    // Encriptación de contraseña
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // Crea el nuevo usuario
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const [result] = await connection.execute(
+      'INSERT INTO Usuarios (nombre, apellidos, username, password, email, telefono, direccion, rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [nombre, apellidos, username, hashedPassword, email, telefono, direccion, 'usuario']
+    );
 
-    // Insertar usuario a la tabla
-    const [result] = await connection.execute('INSERT INTO Usuarios (nombre, apellidos, username, password, email, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?, ?)', [nombre, apellidos, username, hashedPassword, email, telefono, direccion]);
-    const usuarioId = result.insertId;
-
-    // Crear carrito para el nuevo usuario
-    await connection.execute('INSERT INTO Carritos (usuarioId) VALUES (?)', [usuarioId]);
-
-
-    // Genera el token
-    const token = jwt.sign({ usuarioId, nombre, apellidos, username, email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    // Enviar respuesta con mensaje y token
-    console.log('usuario registrado exitosamente')
-    res.status(201).json({ message: 'Usuario registrado exitosamente', token });
-  } catch (err) {
-    console.error(err.message);
-    console.log(error);
-    res.status(500).json({ message: 'Ocurrió un error al registrar el usuario' });
+    res.status(201).json({ message: 'Usuario registrado exitosamente', userId: result.insertId });
+  } catch (error) {
+    console.error('Error en el registro de usuario:', error);
+    res.status(500).json({ message: 'Error al registrar usuario' });
   }
 };
 
@@ -44,10 +35,12 @@ exports.iniciarSesion = async (req, res) => {
 
   try {
     const connection = await db();
+    console.log('Usuario intentando iniciar sesión con email:', email);
 
     // Verifica si el usuario existe
     const [rows] = await connection.execute('SELECT * FROM Usuarios WHERE email = ?', [email]);
     if (rows.length === 0) {
+      console.warn(`Intento de inicio de sesión fallido: Usuario no encontrado para email ${email}`);
       return res.status(400).json({ message: 'Correo Electrónico o Contraseña incorrectos' });
     }
 
@@ -56,6 +49,7 @@ exports.iniciarSesion = async (req, res) => {
     // Verifica la contraseña
     const isMatch = await bcrypt.compare(password, usuario.password);
     if (!isMatch) {
+      console.warn(`Intento de inicio de sesión fallido: Contraseña incorrecta para usuario con email ${email}`);
       return res.status(400).json({ message: 'Correo Electrónico o Contraseña incorrectos' });
     }
 
@@ -64,20 +58,21 @@ exports.iniciarSesion = async (req, res) => {
     const carritoId = carritoRows.length > 0 ? carritoRows[0].carritoId : null;
 
     // Imprime el carritoId en consola
-    console.log('Carrito del usuario:', carritoId);
+    console.log(`Usuario ${usuario.nombre} (ID: ${usuario.usuarioId}) ha iniciado sesión. Carrito ID: ${carritoId}`);
 
     // Genera el token JWT
-    const token = jwt.sign({ usuarioId: usuario.usuarioId, nombre: usuario.nombre, email: usuario.email, carritoId: carritoId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(
+      { usuarioId: usuario.usuarioId, nombre: usuario.nombre, email: usuario.email, carritoId: carritoId, rol: usuario.rol }, 
+      process.env.JWT_SECRET, 
+      { expiresIn: '1h' }
+    );
 
+    // Enviar respuesta con token
     res.json({ token });
-
-    // Enviar respuesta 
-    console.log('usuario logueado')
+    console.log('Token JWT generado y enviado al usuario.', token);
   } catch (err) {
-    console.error(err.message);
+    console.error('Error al intentar iniciar sesión:', err.message);
     res.status(500).json({ message: 'Ocurrió un error al iniciar sesión' });
   }
 };
-
-
 

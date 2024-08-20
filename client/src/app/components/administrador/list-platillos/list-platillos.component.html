@@ -1,18 +1,19 @@
-<button class="btn btn-warning mt-4" style="margin-left: 12px;" [routerLink]="'/añadir-platillo'">Agregar Platillo</button>
+<button class="btn btn-warning mt-4" style="margin-left: 12px;" [routerLink]="'/añadir-platillo'" *ngIf="rol === 'admin'">Agregar Platillo</button>
+
 <div class="container mt-4">
   <div class="row">
     <div *ngFor="let platillo of listPlatillos" class="col-md-4 mb-4">
-      <div class="card shadow-sm">
-        <img [src]="platillo.imagen" class="card-img-top" alt="{{ platillo.nombre }}">
+      <div class="card shadow-sm h-100 border-0">
+        <img [src]="platillo.imagen" class="card-img-top rounded-top" alt="{{ platillo.nombre }}">
         <div class="card-body d-flex flex-column justify-content-between">
           <div>
             <h5 class="card-title">{{ platillo.nombre }}</h5>
-            <p class="card-text">{{ platillo.descripcion }}</p>
+            <p class="card-text text-muted">{{ platillo.descripcion }}</p>
             <p class="card-text"><strong>Precio:</strong> {{ platillo.precio | currency }}</p>
           </div>
           <div class="d-flex justify-content-between mt-3">
-            <button class="btn btn-primary btn-sm" (click)="editPlatillo(platillo.platilloId!)">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="deletePlatillo(platillo.platilloId!)">Eliminar</button>
+            <button class="btn btn-primary btn-sm" (click)="editPlatillo(platillo.platilloId!)" *ngIf="rol === 'admin'">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deletePlatillo(platillo.platilloId!)" *ngIf="rol === 'admin'">Eliminar</button>       
             <button class="btn btn-success btn-sm" (click)="agregarCarrito(platillo.platilloId!)">Agregar al Carrito</button>
           </div>
         </div>

@@ -41,6 +41,7 @@ export class IniciarSesionComponent {
           title: 'Inicio de sesión exitoso',
           icon: 'success'
         });
+        console.log(user)
         this.router.navigate(['/inicio']); // Redirigir a la página de inicio
       },
       error => {
