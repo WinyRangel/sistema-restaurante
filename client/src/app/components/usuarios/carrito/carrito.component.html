@@ -17,20 +17,40 @@
         <td>{{ item.platilloNombre || item.bebidaNombre }}</td>
         <td>{{ item.precioPlatillo || item.precioBebida | currency }}</td>
         <td>{{ (item.cantidad * (item.precioPlatillo || item.precioBebida)) | currency }}</td>
-        <td>
-          <button (click)="eliminarArticulo(item.itemCarritoId)" class="btn btn-danger btn-sm">-</button>
-          <!-- <input style="width:30px; text-align: center;" type="number" [(ngModel)]="item.cantidad" > -->
-
-          <input 
-            type="number" 
-            [(ngModel)]="item.cantidad" 
-            (change)="actualizarCantidad(item.itemCarritoId, item.cantidad)" 
-            style="width: 60px; text-align: center;"
-            min="1" 
-          />
-
-          <button class="btn btn-success btn-sm" (click)="actualizarCantidad(item.itemCarritoId, item.cantidad+1)">+</button>
+        <td class="text-center">
+          <div class="d-flex justify-content-center align-items-center">
+            <button 
+              (click)="eliminarArticulo(item.itemCarritoId)" 
+              class="btn btn-danger btn-sm me-2"
+              aria-label="Eliminar artículo"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M3.5 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            </button>
+        
+            <input 
+              type="number" 
+              [(ngModel)]="item.cantidad" 
+              (change)="actualizarCantidad(item.itemCarritoId, item.cantidad)" 
+              style="width: 60px; text-align: center;"
+              min="1" 
+              class="form-control form-control-sm"
+              aria-label="Cantidad"
+            />
+        
+            <button 
+              class="btn btn-success btn-sm ms-2"
+              (click)="actualizarCantidad(item.itemCarritoId, item.cantidad+1)"
+              aria-label="Incrementar cantidad"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+              </svg>
+            </button>
+          </div>
         </td>
+        
       </tr>
     </tbody>
     <tfoot>
