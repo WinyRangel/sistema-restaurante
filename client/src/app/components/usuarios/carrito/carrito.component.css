@@ -1,54 +1,75 @@
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9fad0; 
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    color: #fc9d1a; 
-  }
-  
-  .btn-danger {
-    background-color: #ed6900;
-    border: none;
-  }
-  
-  .table thead {
-    background-color: #a9c4bd; 
-    color: #fc9d1a; 
-  }
-  
-  .table tbody tr {
-    background-color: #f9fad0; 
-  }
-  
-  .table tbody tr:nth-child(even) {
-    background-color: #fdd051; 
-  }
-  
-  .table td, .table th {
-    vertical-align: middle;
-  }
-  
-  .item-img {
-    width: 80px; 
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  .table tfoot {
-    background-color: #a9c4bd; 
-    color: #fc9d1a; 
-  }
-  
-  .table tfoot td {
-    font-weight: bold;
-  }
-  
-  .table .btn-sm {
-    padding: 0.2rem 0.5rem; 
-  }
-  
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.table thead.table-dark th {
+  background-color: #343a40;
+  color: #fff;
+  font-weight: bold;
+}
+
+.table tfoot.table-light {
+  background-color: #e9ecef;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.item-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #dee2e6;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #c82333;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #218838;
+}
+
+.fw-bold {
+  font-weight: 600;
+}

@@ -1,15 +1,45 @@
+/* .carousel-item img {
+    filter: brightness(70%); 
+}
+
+.carousel-caption {
+    bottom: 20%;
+}
+
+.carousel-title {
+    font-family: 'Lobster', cursive;
+    font-size: 2.5rem;
+    color: #ffbb00;
+}
+
+.carousel-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    color: white;
+}
+
 .card-body {
-    background-color:#F9CE54;
+    background-color: #ffffff;
     border-radius: 15px;
     padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
-.card{
+.card {
     border: none;
+    background: transparent;
 }
 
-h5{
-    color: white;
+.card:hover .card-body {
+    transform: translateY(-10px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+.card-title {
+    color: #333333;
+    font-weight: 700;
+    margin-top: 10px;
 }
 
 .card-img-top {
@@ -18,8 +48,121 @@ h5{
     border-radius: 50%;
     background-color: white;
     padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-a{
+.card-link {
     text-decoration: none;
+}
+
+.card-link:hover .card-title {
+    color: #ffbb00; 
+} 
+
+ */
+
+ .img-fluid {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilo general para la navbar */
+.nav {
+    background-color: #333; /* Fondo oscuro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 10px;
+  }
+  
+  /* Estilo para los ítems de la navbar */
+  .nav-item {
+    margin: 0 15px; /* Espacio entre los ítems */
+  }
+  
+  .nav-link {
+    color: #fff; /* Color blanco para el texto */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 18px; /* Aumenta el tamaño del texto */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    transition: color 0.3s ease-in-out; /* Transición suave en el color */
+  }
+  
+  .nav-link:hover {
+    color: #ffbb00; /* Color dorado al pasar el ratón */
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+  }
+  
+  /* Para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .nav {
+      flex-direction: column; /* Alinear ítems verticalmente en pantallas pequeñas */
+      padding: 15px;
+    }
+  
+    .nav-item {
+      margin-bottom: 10px; /* Espacio entre ítems en pantallas pequeñas */
+    }
+  }
+  
+
+  /* Contenedor principal */
+.container {
+  padding: 20px;
+}
+
+/* Ajustes para las tarjetas dentro del carrusel */
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  font-family: 'Lobster', cursive;
+  color: #333;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 1em;
+  color: #666;
+}
+
+.card-text strong {
+  color: #ffbb00;
+}
+
+/* Ajustes para el carrusel */
+.carousel-inner .row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.carousel-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #ffbb00; /* Color de los íconos de navegación */
+  border-radius: 50%;
 }

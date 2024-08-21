@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a href="inicio">
-      <img src="https://i.ibb.co/W0KpBCy/logo-2-removebg-preview-1.png" alt="" width="100" height="101">
+    <a href="inicio" class="navbar-brand d-flex align-items-center">
+      <img src="https://i.ibb.co/W0KpBCy/logo-2-removebg-preview-1.png" alt="" width="100" height="101" class="me-2">
+      <span class="brand-name">Porita Coffe</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -12,7 +13,7 @@
           <a class="nav-link" *ngIf="usuarioAutenticado" href="bebidas">Bebidas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="usuarioAutenticado"  href="/ver-platillos">Platillos</a>
+          <a class="nav-link" *ngIf="usuarioAutenticado" href="/listar-platillos">Platillos</a>
         </li>
         <li class="nav-item" *ngIf="!usuarioAutenticado">
           <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
@@ -21,13 +22,17 @@
   
       <div *ngIf="usuarioAutenticado" class="navbar-nav ms-auto">
         <span class="navbar-text me-3">Bienvenido, {{ nombreUsuario }}</span>
+        <span class="navbar-text me-3"> {{ rol }}</span>
         <a class="nav-link" href="/carrito">
           <i class="fa-solid fa-cart-shopping fa-lg"></i>  
         </a>
         <a class="nav-link" (click)="cerrarSesion()" alt="Cerrar sesión">
-          <i class="fa-solid fa-right-from-bracket"></i>
+          <i class="fa-solid fa-right-from-bracket fa-lg"></i>
         </a>
       </div>
     </div>
   </div>
 </nav>
+<!-- <div class="card">
+  <p-menubar [model]="items"/>
+</div> -->

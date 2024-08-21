@@ -12,11 +12,21 @@ import { Bebida } from '../../../Interfaces/Bebida';
 })
 export class ListBebidasComponent implements OnInit {
   listBebidas: Bebida[] = [];
+  rol: string | null = null;
+  usuarioAutenticado: boolean = false;
 
   constructor(private _bebidaService: BebidaService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.usuarioAutenticado = this.authService.estaAutenticado();
+    if (this.usuarioAutenticado) {
+      this.rol = this.authService.obtenerRol();
+  }
     this.getListBebidas();
+  }
+
+  estaAutenticado(): boolean {
+    return this.authService.estaAutenticado();
   }
 
   getListBebidas() {

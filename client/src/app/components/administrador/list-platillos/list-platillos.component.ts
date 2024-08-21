@@ -12,13 +12,25 @@ import { Platillo } from '../../../interfaces/Platillo';
 })
 export class ListPlatillosComponent implements OnInit {
   listPlatillos: Platillo[] = [];
+  rol: string | null = null;
+  usuarioAutenticado: boolean = false;
 
+  
   constructor(private _platilloService: PlatilloService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getListPlatillos();
+    this.usuarioAutenticado = this.authService.estaAutenticado();
+    if (this.usuarioAutenticado) {
+      this.rol = this.authService.obtenerRol();
   }
+  this.getListPlatillos();
 
+}
+
+  estaAutenticado(): boolean {
+    return this.authService.estaAutenticado();
+  }
+  
   getListPlatillos() {
     this._platilloService.getPlatillos().subscribe((data) => {
       this.listPlatillos = data;
