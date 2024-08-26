@@ -61,11 +61,7 @@
 
  */
 
- .img-fluid {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
+
 
 /* Estilo general para la navbar */
 .nav {
@@ -104,65 +100,3 @@
     }
   }
   
-
-  /* Contenedor principal */
-.container {
-  padding: 20px;
-}
-
-/* Ajustes para las tarjetas dentro del carrusel */
-.card {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.card-img-top {
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px 10px 0 0;
-}
-
-.card-title {
-  font-family: 'Lobster', cursive;
-  color: #333;
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-.card-text {
-  font-size: 1em;
-  color: #666;
-}
-
-.card-text strong {
-  color: #ffbb00;
-}
-
-/* Ajustes para el carrusel */
-.carousel-inner .row {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 15px;
-  justify-content: center;
-}
-
-.carousel-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  padding: 20px;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: #ffbb00; /* Color de los íconos de navegación */
-  border-radius: 50%;
-}

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-header',
@@ -16,23 +15,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  cerrarSesion() {
-    Swal.fire({
-      title: "Regresa pronto!",
-      text: "Porita Coffe te desea un excelente día"
-    });
-    this.authService.cerrarSesion();
-    this.usuarioAutenticado = false;
-    this.nombreUsuario = null;
-    this.rol = null;
-    this.router.navigate(['/iniciar-sesion']);
-  }
-
-  estaAutenticado(): boolean {
-    return this.authService.estaAutenticado();
-  }
-
   ngOnInit(): void {
+    // Inicializa el estado de autenticación
     this.usuarioAutenticado = this.authService.estaAutenticado();
     if (this.usuarioAutenticado) {
       this.nombreUsuario = this.authService.obtenerNombreUsuario();
@@ -47,9 +31,21 @@ export class HeaderComponent implements OnInit {
         this.rol = this.authService.obtenerRol();
       } else {
         this.nombreUsuario = null;
+        this.rol = null;
       }
     });
-    
+  }
+
+  cerrarSesion() {
+    Swal.fire({
+      title: "Regresa pronto!",
+      text: "Porita Coffe te desea un excelente día"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.authService.cerrarSesion();
+        this.router.navigate(['/iniciar-sesion']);
+      }
+    });
   }
 
   isActive(route: string): boolean {

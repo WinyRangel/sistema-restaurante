@@ -14,6 +14,7 @@ import { ContactoComponent } from './footer/contacto/contacto.component';
 import { FaqsComponent } from './footer/faqs/faqs.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 import { SobreNosotrosComponent } from './footer/sobre-nosotros/sobre-nosotros.component';
+import { ListarUsuariosComponent } from './components/administrador/listar-usuarios/listar-usuarios.component';
 
 const routes: Routes = [
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'bebidas', component: ListBebidasComponent},
   { path: 'añadir-bebida', component: AddEditBebidasComponent },
   { path: 'edit-bebida/:id', component: AddEditBebidasComponent },
+  { path: 'listar-usuarios', component: ListarUsuariosComponent},
   //usuario
   { path: 'ver-platillos', component: ListarPlatillosComponent },
   { path: 'carrito', component: CarritoComponent},
