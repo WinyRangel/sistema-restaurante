@@ -131,6 +131,7 @@ export class CarritoComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
       confirmButtonText: 'Sí, vaciar'
     }).then((result) => {
       if (result.isConfirmed) {
