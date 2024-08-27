@@ -29,6 +29,7 @@ import { FaqsComponent } from './footer/faqs/faqs.component';
 import { ContactoComponent } from './footer/contacto/contacto.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { PuntuacionComponent } from './components/usuarios/puntuacion/puntuacion.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     SobreNosotrosComponent,
     FaqsComponent,
     ContactoComponent,
-    MapaSitioComponent
+    MapaSitioComponent,
+    PuntuacionComponent
   ],
   imports: [
     BrowserModule,

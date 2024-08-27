@@ -15,6 +15,7 @@
             <button class="btn btn-primary btn-sm" (click)="editPlatillo(platillo.platilloId!)" *ngIf="rol === 'admin'">Editar</button>
             <button class="btn btn-danger btn-sm" (click)="deletePlatillo(platillo.platilloId!)" *ngIf="rol === 'admin'">Eliminar</button>       
             <button class="btn btn-success btn-sm" (click)="agregarCarrito(platillo.platilloId!)">Agregar al Carrito</button>
+            <!-- <app-puntuacion [rating]="platillo.rating || 0" (ratingChange)="onRatingChange(platillo.platilloId!, $event)"></app-puntuacion> -->
           </div>
         </div>
       </div>

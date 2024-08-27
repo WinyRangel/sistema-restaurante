@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PlatilloService } from '../../../services/platillo.service';
-import { AuthService } from '../../../services/auth.service'; // Importa el AuthService
+import { AuthService } from '../../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Platillo } from '../../../interfaces/Platillo';
+import { PuntuacionService } from '../../../services/puntuacion.service';
 
 @Component({
   selector: 'app-list-platillos',
@@ -16,7 +17,9 @@ export class ListPlatillosComponent implements OnInit {
   usuarioAutenticado: boolean = false;
 
   
-  constructor(private _platilloService: PlatilloService, private authService: AuthService, private router: Router) { }
+  constructor(private _platilloService: PlatilloService, private authService: AuthService, private router: Router,
+    private puntuacionService: PuntuacionService
+  ) { }
 
   ngOnInit(): void {
     this.usuarioAutenticado = this.authService.estaAutenticado();
@@ -76,6 +79,23 @@ export class ListPlatillosComponent implements OnInit {
       Swal.fire('¡Éxito!', 'Platillo agregado al carrito', 'success');
     }, (error) => {
       Swal.fire('Error', 'No se pudo agregar el platillo al carrito', 'error');
+    });
+  }
+
+  onRatingChange(platilloId: number, rating: number) {
+    const usuarioId = this.authService.getUserId(); // Obtener el ID del usuario autenticado
+
+    const puntuacionData = {
+      usuarioId,
+      platilloId,
+      puntuacion: rating,
+      comentario: ''
+    };
+
+    this.puntuacionService.agregarPuntuacion(puntuacionData).subscribe(() => {
+      Swal.fire('¡Éxito!', 'Puntuación guardada correctamente', 'success');
+    }, (error) => {
+      Swal.fire('Error', 'No se pudo guardar la puntuación', 'error');
     });
   }
 }

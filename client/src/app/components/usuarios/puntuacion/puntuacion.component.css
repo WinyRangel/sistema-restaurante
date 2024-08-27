@@ -1,0 +1,13 @@
+.rating {
+  display: flex;
+}
+
+.rating span {
+  cursor: pointer;
+  font-size: 24px;
+  color: #ccc; 
+}
+
+.rating span.filled {
+  color: #ffc107; 
+}
