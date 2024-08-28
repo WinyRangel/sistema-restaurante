@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',

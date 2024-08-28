@@ -3,35 +3,44 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-
 export class CarritoService {
-    private static instance: CarritoService;
-    private apiUrl = 'http://localhost:3002/api/carrito';
-    
-    constructor(private http: HttpClient) { }
+  private static instance: CarritoService;
+  private apiUrl = 'http://localhost:3002/api/carrito';
 
-    public static getInstance(http: HttpClient): CarritoService{
-        if(!CarritoService.instance){ //Verificando la propiedad estatica de la clase, instance almacena una sola instancia del carrtiservice
-            CarritoService.instance = new CarritoService(http);
-        }
-        return CarritoService.instance;
+  constructor(private http: HttpClient) { }
+
+  public static getInstance(http: HttpClient): CarritoService {
+    if (!CarritoService.instance) {
+      CarritoService.instance = new CarritoService(http);
     }
+    return CarritoService.instance;
+  }
 
-    mostrarCarrito(carritoId: number): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/mostrar/${carritoId}`);
-    }
+  mostrarCarrito(carritoId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/mostrar/${carritoId}`);
+  }
 
-    eliminarArticulo(itemCarritoId: number): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/eliminar/${itemCarritoId}`);
-    }
+  eliminarArticulo(itemCarritoId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/eliminar/${itemCarritoId}`);
+  }
 
-    vaciarCarrito(carritoId: number): Observable<any> {
+  vaciarCarrito(carritoId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/vaciar/${carritoId}`);
-    }
+  }
 
-    agregarCarrito(item: { userId: number, platilloId: number, cantidad: number }): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/agregar`, item);
-    }
+  agregarCarrito(item: { userId: number, platilloId: number, cantidad: number }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/agregar`, item);
+  }
+
+  // Nuevo método para obtener todos los carritos
+  getCarritos(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/todos`);
+  }
+
+  // Nuevo método para actualizar el estado de un carrito
+  actualizarEstado(carritoId: number, estado: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/actualizar-estado/${carritoId}`, { estado });
+  }
 }

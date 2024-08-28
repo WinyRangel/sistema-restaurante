@@ -3,10 +3,6 @@ drop database sistemaPedidos;
 CREATE DATABASE sistemaPedidos;
 USE sistemaPedidos;
 
--- Creación de la base de datos
-CREATE DATABASE sistemaPedidos;
-USE sistemaPedidos;
-
 -- Tabla Usuarios
 CREATE TABLE Usuarios (
     usuarioId INT AUTO_INCREMENT PRIMARY KEY,

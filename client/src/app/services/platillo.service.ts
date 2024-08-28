@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Platillo } from '../interfaces/Platillo';
+import { Platillo } from '../Interfaces/Platillo';
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,26 @@
+<div *ngIf="usuarioAutenticado">
+    <h2>Lista de Carritos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID Carrito</th>
+          <th>Usuario</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let carrito of listCarritos">
+          <td>{{ carrito.carritoId }}</td>
+          <td>{{ carrito.usuarioId }}</td>
+          <td>{{ carrito.estado }}</td>
+          <td>
+            <button (click)="actualizarEstadoCarrito(carrito.carritoId, 'En Preparación')">En Preparación</button>
+            <button (click)="actualizarEstadoCarrito(carrito.carritoId, 'En Proceso de Entrega')">En Proceso de Entrega</button>
+            <button (click)="actualizarEstadoCarrito(carrito.carritoId, 'Entregado')">Entregado</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

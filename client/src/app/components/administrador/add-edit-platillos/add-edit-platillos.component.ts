@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlatilloService } from '../../../services/platillo.service';
-import { Platillo } from '../../../interfaces/Platillo';
+
 @Component({
   selector: 'app-add-edit-platillos',
   templateUrl: './add-edit-platillos.component.html',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlatilloService } from '../../../services/platillo.service';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-import { Platillo } from '../../../interfaces/Platillo';
+import { Platillo } from '../../../Interfaces/Platillo';
 import Swal from 'sweetalert2';
 import { CarritoService } from '../../../services/carrito.service';
 import { ItemCarrito } from '../../../Interfaces/ItemCarrito';

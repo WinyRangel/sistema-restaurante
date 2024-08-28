@@ -29,6 +29,7 @@ import { FaqsComponent } from './footer/faqs/faqs.component';
 import { ContactoComponent } from './footer/contacto/contacto.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { ListCarritosComponent } from './components/administrador/list-carritos/list-carritos.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     SobreNosotrosComponent,
     FaqsComponent,
     ContactoComponent,
-    MapaSitioComponent
+    MapaSitioComponent,
+    ListCarritosComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     MenubarModule,
     MatButtonModule, // Añadir ReactiveFormsModule a la lista de imports
     SpeedDialModule,
-    SplitButtonModule
+    SplitButtonModule,
+    ReactiveFormsModule
 
   ],
   providers: [

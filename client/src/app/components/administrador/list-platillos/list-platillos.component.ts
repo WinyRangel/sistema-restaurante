@@ -3,7 +3,7 @@ import { PlatilloService } from '../../../services/platillo.service';
 import { AuthService } from '../../../services/auth.service'; // Importa el AuthService
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { Platillo } from '../../../interfaces/Platillo';
+import { Platillo } from '../../../Interfaces/Platillo';
 
 @Component({
   selector: 'app-list-platillos',

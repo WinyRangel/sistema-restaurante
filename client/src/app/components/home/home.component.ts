@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Platillo } from '../../interfaces/Platillo';
+import { Platillo } from '../../Interfaces/Platillo';
 import { PlatilloService } from '../../services/platillo.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
