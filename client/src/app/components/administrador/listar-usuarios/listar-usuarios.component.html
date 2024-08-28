@@ -1,0 +1,34 @@
+<p-table
+    [value]="listUsuarios"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:20%">Nombre</th>
+            <th style="width:20%">Apellidos</th>
+            <th style="width:20%">Email</th>
+            <th style="width:25%">Dirección</th>
+            <th style="width:10%">Estado</th>
+            <th style="width:5%">Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+        <tr>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.apellidos}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.direccion}}</td>
+            <td>
+                <p-tag [value]="usuario.status" [severity]="getStatus(usuario.status)"></p-tag>
+            </td>            
+            <td>
+                <p-button icon="pi pi-trash" [text]="true" [raised]="true" severity="danger" (click)="eliminarUsuario(usuario.usuarioId)"/>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+

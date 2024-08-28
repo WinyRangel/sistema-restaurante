@@ -10,10 +10,13 @@
     <div class="collapse navbar-collapse" id="navbarColor04">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" *ngIf="usuarioAutenticado" href="bebidas">Bebidas</a>
+          <a class="nav-link" href="bebidas">Bebidas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="usuarioAutenticado" href="/listar-platillos">Platillos</a>
+          <a class="nav-link" href="/listar-platillos">Platillos</a>
+        </li>
+        <li>
+          <a class="nav-link"  *ngIf="rol === 'admin'" href="/listar-usuarios" >Usuarios</a>
         </li>
         <li class="nav-item" *ngIf="!usuarioAutenticado">
           <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>

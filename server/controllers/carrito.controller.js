@@ -67,8 +67,6 @@ const eliminarArticuloCarrito = async (req, res) => {
 
   try {
     const connection = await connectDB();
-    
-    // Obtén la cantidad actual del artículo
     const [rows] = await connection.query('SELECT cantidad FROM ItemsCarrito WHERE itemCarritoId = ?', [itemCarritoId]);
 
     if (rows.length === 0) {
@@ -78,11 +76,9 @@ const eliminarArticuloCarrito = async (req, res) => {
     const cantidadActual = rows[0].cantidad;
 
     if (cantidadActual > 1) {
-      // Reducir la cantidad en 1
       await connection.query('UPDATE ItemsCarrito SET cantidad = cantidad - 1 WHERE itemCarritoId = ?', [itemCarritoId]);
       res.json({ msg: 'Cantidad del artículo reducida en 1' });
     } else {
-      // Eliminar el artículo si la cantidad es 1
       await connection.query('DELETE FROM ItemsCarrito WHERE itemCarritoId = ?', [itemCarritoId]);
       res.json({ msg: 'Artículo eliminado del carrito' });
     }
@@ -106,10 +102,31 @@ const vaciarCarrito = async (req, res) => {
   }
 };
 
+const actualizarCantidadArticulo= async (req, res) => {
+  const { itemCarritoId, cantidad } = req.body; 
+  try {
+    const connection = await connectDB();
+    
+    const [rows] = await connection.query('SELECT * FROM ItemsCarrito WHERE itemCarritoId = ?', [itemCarritoId]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ msg: `No se encontró artículo con el ID ${itemCarritoId}` });
+    }
+
+    await connection.query('UPDATE ItemsCarrito SET cantidad = ? WHERE itemCarritoId = ?', [cantidad, itemCarritoId]);
+    
+    res.json({ msg: 'Cantidad del artículo actualizada correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Error al actualizar la cantidad del artículo en el carrito' });
+  }
+};
+
 module.exports = {
   agregarArticuloCarrito,
   mostrarCarrito,
   eliminarArticuloCarrito,
-  vaciarCarrito
+  vaciarCarrito,
+  actualizarCantidadArticulo
 };
 
