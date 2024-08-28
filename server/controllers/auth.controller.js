@@ -8,7 +8,7 @@ exports.registroUsuario = async (req, res) => {
 
   try {
     const connection = await db();
-    console.log('Usuario registrado con éxito');
+    console.log('Usuario intentando registrarse:', email);
 
     // Verifica que el usuario no exista a través del correo
     const [rows] = await connection.execute('SELECT * FROM Usuarios WHERE email = ?', [email]);
@@ -23,7 +23,12 @@ exports.registroUsuario = async (req, res) => {
       [nombre, apellidos, username, hashedPassword, email, telefono, direccion, 'usuario']
     );
 
-    res.status(201).json({ message: 'Usuario registrado exitosamente', userId: result.insertId });
+    const usuarioId = result.insertId;
+    console.log('Usuario registrado con éxito, ID:', usuarioId);
+
+    await connection.execute('INSERT INTO Carritos (usuarioId) VALUES (?)', [usuarioId]);
+
+    res.status(201).json({ message: 'Usuario registrado exitosamente', userId: usuarioId });
   } catch (error) {
     console.error('Error en el registro de usuario:', error);
     res.status(500).json({ message: 'Error al registrar usuario' });
