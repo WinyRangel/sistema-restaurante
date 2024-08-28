@@ -165,11 +165,11 @@ export class CarritoComponent implements OnInit {
 
   actualizarCantidad(itemCarritoId: number, cantidad: number): void {
     this.carritoService.actualizarCantidadArticulo(itemCarritoId, cantidad).subscribe(
-      response => {
+      (      response: any) => {
         console.log('Cantidad actualizada:', response);
         this.mostrarCarrito();
       },
-      error => {
+      (      error: any) => {
         console.error('Error al actualizar la cantidad:', error);
       }
     );

@@ -43,4 +43,10 @@ export class CarritoService {
   actualizarEstado(carritoId: number, estado: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/actualizar-estado/${carritoId}`, { estado });
   }
+
+  // Implementación del método para actualizar la cantidad de un artículo
+  actualizarCantidadArticulo(itemCarritoId: number, cantidad: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/actualizar-cantidad/${itemCarritoId}`, { cantidad });
+  }
 }
+
