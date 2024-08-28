@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../config/db');
 
-
 exports.registroUsuario = async (req, res) => {
   const { nombre, apellidos, username, password, email, telefono, direccion } = req.body;
 
@@ -20,7 +19,7 @@ exports.registroUsuario = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const [result] = await connection.execute(
       'INSERT INTO Usuarios (nombre, apellidos, username, password, email, telefono, direccion, rol, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [nombre, apellidos, username, hashedPassword, email, telefono, direccion, 'usuario', 'activo']
+      [nombre, apellidos, username, hashedPassword, email, telefono, direccion, 'usuario', 'Activo']
     );
 
     res.status(201).json({ message: 'Usuario registrado exitosamente', userId: result.insertId });
@@ -53,6 +52,7 @@ exports.iniciarSesion = async (req, res) => {
     // Actualiza el campo lastLogin
     await connection.execute('UPDATE Usuarios SET lastLogin = NOW() WHERE usuarioId = ?', [usuario.usuarioId]);
 
+    // Obtén el carrito del usuario si existe
     const [carritoRows] = await connection.execute('SELECT carritoId FROM Carritos WHERE usuarioId = ?', [usuario.usuarioId]);
     const carritoId = carritoRows.length > 0 ? carritoRows[0].carritoId : null;
 
@@ -70,7 +70,6 @@ exports.iniciarSesion = async (req, res) => {
   }
 };
 
-
 exports.obtenerUsuarios = async (req, res) => {
   try {
     const connection = await db();
@@ -85,13 +84,12 @@ exports.obtenerUsuarios = async (req, res) => {
     }
 
     // Responde con la lista de usuarios
-    res.json(rows); // <--- Cambiado aquí
+    res.json(rows);
   } catch (error) {
     console.error('Error al obtener los usuarios:', error);
     res.status(500).json({ message: 'Error al obtener los usuarios' });
   }
 };
-
 
 exports.eliminarUsuario = async (req, res) => {
   const { id } = req.params;
@@ -130,8 +128,8 @@ exports.verificarInactividad = async (req, res) => {
     for (const usuario of rows) {
       const lastLogin = new Date(usuario.lastLogin);
       if (now - lastLogin > unMes) {
-        // Cambia el estado a "inactivo"
-        await connection.execute('UPDATE Usuarios SET status = ? WHERE usuarioId = ?', ['inactivo', usuario.usuarioId]);
+        // Cambia el estado a "Inactivo"
+        await connection.execute('UPDATE Usuarios SET status = ? WHERE usuarioId = ?', ['Inactivo', usuario.usuarioId]);
         console.log(`Usuario con ID: ${usuario.usuarioId} ha sido marcado como inactivo`);
       }
     }
@@ -142,3 +140,4 @@ exports.verificarInactividad = async (req, res) => {
     res.status(500).json({ message: 'Error al verificar la inactividad' });
   }
 };
+

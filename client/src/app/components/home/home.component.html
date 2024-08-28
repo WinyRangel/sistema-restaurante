@@ -1,10 +1,11 @@
- <div class="container text-center">
+<div class="container text-center">
   <div class="row justify-content-center">
     <div class="col-auto">
       <img src="../../../assets/header.png" alt="Promoción" class="img-fluid">
     </div>
   </div>
 </div>
+
 <ul class="nav justify-content-center">
   <li class="nav-item">
     <a class="nav-link" href="#">Bebidas</a>
@@ -13,21 +14,24 @@
     <a class="nav-link" href="#">Platillos</a>
   </li>
 </ul>
+
 <br>
+
+<!-- Contenedor para Platillos -->
 <div class="container text-center mt-3 mb-3">
   <div class="row">
     <div class="col-md-3 mb-3" *ngFor="let platillo of listPlatillos">
       <p-card header="{{platillo.nombre}}" subheader="$ {{platillo.precio}}" [style]="{ width: '100%' }">
         <ng-template pTemplate="header">
-          <img alt="Card" src="{{platillo.imagen}}" />
+          <img alt="Card" [src]="platillo.imagen" />
         </ng-template>
         <p>
           {{platillo.descripcion}}
         </p>
         <ng-template pTemplate="footer">
           <div class="d-flex gap-3 mt-1">
-            <p-button label="Detalles" severity="info" class="w-100" (onClick)="showDialog()" />
-            <p-button icon="pi pi-cart-plus" (click)="agregarCarritoPlatillo(platillo.platilloId!)" />
+            <p-button label="Detalles" severity="info" class="w-100" (onClick)="showDialog()"></p-button>
+            <p-button icon="pi pi-cart-plus" (click)="agregarCarritoPlatillo(platillo.platilloId!)"></p-button>
           </div>
         </ng-template>
       </p-card>
@@ -35,26 +39,24 @@
   </div>
 </div>
 
-
+<!-- Contenedor para Bebidas -->
 <div class="container text-center mt-3 mb-3">
   <div class="row">
-    <div  class="col-md-3 mb-3" *ngFor="let bebida of listBebidas">
-      <p-card header=" {{bebida.nombre}} " subheader=" $ {{bebida.precio }}" [style]="{ width: '100%' }">
-          <ng-template pTemplate="header">
-              <img alt="Card" src="{{bebida.imagen}}" />
-          </ng-template>
-          <p>
-            {{bebida.descripcion}}
-          </p>
-          <ng-template pTemplate="footer">
-              <div class="flex gap-3 mt-1">
-                  <p-button label="Detalles" severity="info" class="w-full" styleClass="w-full" (onClick)="showDialog()" />
-                  <p-button icon="pi pi-cart-plus" (click)="agregarCarritoBebida(bebida.bebidaId!)"/>
-                </div>
-          </ng-template>
+    <div class="col-md-3 mb-3" *ngFor="let bebida of listBebidas">
+      <p-card header="{{bebida.nombre}}" subheader="$ {{bebida.precio}}" [style]="{ width: '100%' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" [src]="bebida.imagen" />
+        </ng-template>
+        <p>
+          {{bebida.descripcion}}
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="d-flex gap-3 mt-1">
+            <p-button label="Detalles" severity="info" class="w-100" (onClick)="showDialog()"></p-button>
+            <p-button icon="pi pi-cart-plus" (click)="agregarCarritoBebida(bebida.bebidaId!)"></p-button>
+          </div>
+        </ng-template>
       </p-card>
     </div>
   </div>
 </div>
- 
-

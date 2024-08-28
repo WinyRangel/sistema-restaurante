@@ -15,8 +15,11 @@
         <li class="nav-item">
           <a class="nav-link" href="/listar-platillos">Platillos</a>
         </li>
-        <li>
-          <a class="nav-link"  *ngIf="rol === 'admin'" href="/listar-usuarios" >Usuarios</a>
+        <li class="nav-item" *ngIf="rol === 'admin'">
+          <a class="nav-link" href="/listar-usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item" *ngIf="rol === 'admin'">
+          <a class="nav-link" href="/list-carritos">Carritos</a>
         </li>
         <li class="nav-item" *ngIf="!usuarioAutenticado">
           <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
@@ -25,7 +28,7 @@
   
       <div *ngIf="usuarioAutenticado" class="navbar-nav ms-auto">
         <span class="navbar-text me-3">Bienvenido, {{ nombreUsuario }}</span>
-        <span class="navbar-text me-3"> {{ rol }}</span>
+        <span class="navbar-text me-3">{{ rol }}</span>
         <a class="nav-link" href="/carrito">
           <i class="fa-solid fa-cart-shopping fa-lg"></i>  
         </a>
@@ -36,6 +39,3 @@
     </div>
   </div>
 </nav>
-<!-- <div class="card">
-  <p-menubar [model]="items"/>
-</div> -->
