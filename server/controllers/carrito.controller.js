@@ -162,6 +162,76 @@ const obtenerOrdenes = async (req, res) => {
   }
 };
 
+const obtenerOrdenesPorUsuario = async (req, res) => {
+  const { usuarioId } = req.params;
+
+  try {
+    const connection = await connectDB();
+    const [rows] = await connection.query(`
+      SELECT 
+          o.ordenId,
+          u.nombre AS nombreUsuario,
+          u.direccion AS direccionUsuario,
+          u.email AS emailUsuario,
+          o.fechaOrden,
+          (COALESCE(SUM(p.precio * do.cantidad), 0) +
+          COALESCE(SUM(b.precio * do.cantidad), 0)) AS total, o.estatus as estatus
+      FROM 
+          Ordenes o
+          JOIN Usuarios u ON o.usuarioId = u.usuarioId
+          LEFT JOIN DetallesOrden do ON o.ordenId = do.ordenId
+          LEFT JOIN Platillos p ON do.platilloId = p.platilloId
+          LEFT JOIN Bebidas b ON do.bebidaId = b.bebidaId
+      WHERE 
+          u.usuarioId = ?
+      GROUP BY 
+          o.ordenId, 
+          u.nombre, 
+          u.direccion,
+          u.email, 
+          o.fechaOrden
+      ORDER BY 
+          o.fechaOrden ASC;
+    `, [usuarioId]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ msg: `No se encontraron órdenes para el usuario con ID ${usuarioId}` });
+    }
+
+    res.json(rows); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Error al obtener la información de las órdenes del usuario' });
+  }
+};
+
+
+const actualizarEstadoOrden = async (req, res) => {
+  const { ordenId } = req.params;  // Obtener ordenId de los parámetros de ruta
+  const { nuevoEstado } = req.body; // Obtener nuevoEstado del cuerpo de la solicitud
+
+  try {
+    const connection = await connectDB();
+    
+    // Validar el nuevo estado
+    const estadosValidos = ['Recibido', 'Atendiendo', 'Entregado'];
+    if (!estadosValidos.includes(nuevoEstado)) {
+      return res.status(400).json({ msg: 'Estado no válido' });
+    }
+
+    // Actualizar el estado de la orden
+    const [result] = await connection.query('UPDATE Ordenes SET estatus = ? WHERE ordenId = ?', [nuevoEstado, ordenId]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ msg: `No se encontró orden con el ID ${ordenId}` });
+    }
+
+    res.json({ msg: 'Estado de la orden actualizado correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Error al actualizar el estado de la orden' });
+  }
+};
 
 module.exports = {
   agregarArticuloCarrito,
@@ -170,4 +240,6 @@ module.exports = {
   vaciarCarrito,
   actualizarCantidadArticulo, 
   obtenerOrdenes,
+  obtenerOrdenesPorUsuario,
+  actualizarEstadoOrden 
 };

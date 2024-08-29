@@ -38,7 +38,11 @@ export class CarritoService {
     obtenerOrdenes(): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/ordenes`);
     }
-
+    
+    obtenerOrdenesPorUsuario(usuarioId: number): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/ordenes/${usuarioId}`);
+    }
+    
     // agregarCarrito(item: { userId: number, platilloId: number, cantidad: number }): Observable<any> {
     //     return this.http.post<any>(`${this.apiUrl}/agregar`, item);
     // }

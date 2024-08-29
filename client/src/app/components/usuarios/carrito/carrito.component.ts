@@ -14,12 +14,13 @@ import { BebidaService } from '../../../services/bebida.service';
 })
 export class CarritoComponent implements OnInit {
   carritoItems: any[] = [];
+  ordenes: any[] = [];
   total: number = 0; 
   private carritoService: CarritoService;
 
 
   constructor(private http: HttpClient, private authService: AuthService, private paymentService: PaymentService, 
-    private platilloService: PlatilloService, private bebidaService: BebidaService) {
+    private platilloService: PlatilloService, private bebidaService: BebidaService, ) {
     this.carritoService = CarritoService.getInstance(this.http);
    }
 
@@ -33,6 +34,8 @@ export class CarritoComponent implements OnInit {
     } else if (status === 'cancelado') {
       Swal.fire('Pago cancelado', 'El pago fue cancelado', 'info');
     }
+
+    this.ordenUsuario();
   }
   
   mostrarCarritoYGuardar(): void {
@@ -237,6 +240,26 @@ export class CarritoComponent implements OnInit {
       },
       error => {
         console.error('Error al actualizar la cantidad:', error);
+      }
+    );
+  }
+
+
+  ordenUsuario(): void {
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      Swal.fire('Error', 'No se puede obtener las órdenes, usuario no autenticado', 'error');
+      return;
+    }
+  
+    this.carritoService.obtenerOrdenesPorUsuario(userId).subscribe(
+      (data) => {
+        this.ordenes = data;
+        console.log('Órdenes del usuario:', data);
+      },
+      (error) => {
+        console.error('Error al obtener las órdenes:', error);
+        Swal.fire('Error', 'No se pudieron cargar las órdenes', 'error');
       }
     );
   }
