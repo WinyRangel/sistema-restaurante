@@ -25,12 +25,12 @@
           <img alt="Card" src="{{platillo.imagen}}" />
         </ng-template>
         <ng-template pTemplate="footer">
+          <div class="rating-container">
+            <span>&#9733;</span> <!-- Estrella llena -->
+            <p class="d-inline ms-2">{{ platillo.rating | number:'1.1-1' }}</p>
+          </div>
           <div class="card-footer">
-            <!-- Mostrar promedio con icono de estrella -->
-            <div class="rating-container">
-              <span>&#9733;</span> <!-- Estrella llena -->
-              <p class="d-inline ms-2">{{ platillo.rating | number:'1.1-1' }}</p>
-            </div>
+          
             <p-button label="Detalles" severity="info" class="w-full" (onClick)="verDetallesPlatillo(platillo)" />
             <p-button icon="pi pi-cart-plus" (click)="agregarCarritoPlatillo(platillo.platilloId!)" />
           </div>
@@ -49,12 +49,11 @@
           <img alt="Card" src="{{bebida.imagen}}" />
         </ng-template>
         <ng-template pTemplate="footer">
+          <div class="rating-container">
+            <span>&#9733;</span> <!-- Estrella llena -->
+            <p class="d-inline ms-2">{{ bebida.rating | number:'1.1-1' }}</p>
+          </div>
           <div class="card-footer">
-            <!-- Mostrar promedio con icono de estrella -->
-            <div class="rating-container">
-              <span>&#9733;</span> <!-- Estrella llena -->
-              <p class="d-inline ms-2">{{ bebida.rating | number:'1.1-1' }}</p>
-            </div>
             <p-button label="Detalles" severity="info" class="w-full" (onClick)="verDetallesBebida(bebida)" />
             <p-button icon="pi pi-cart-plus" (click)="agregarCarritoBebida(bebida.bebidaId!)" />
           </div>
