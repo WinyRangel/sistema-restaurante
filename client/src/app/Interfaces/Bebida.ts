@@ -4,4 +4,7 @@ export interface Bebida {
     descripcion: string;
     precio: number;
     imagen: string;
+    rating?: number;
+    comentarios?: { comentario: string; usuarioNombre: string }[];
+
 }

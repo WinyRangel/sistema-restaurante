@@ -35,6 +35,7 @@ import { FaqsComponent } from './footer/faqs/faqs.component';
 import { ContactoComponent } from './footer/contacto/contacto.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { PuntuacionComponent } from './components/usuarios/puntuacion/puntuacion.component';
 import { ListarUsuariosComponent } from './components/administrador/listar-usuarios/listar-usuarios.component';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
@@ -58,6 +59,7 @@ import { CommonModule } from '@angular/common';
     FaqsComponent,
     ContactoComponent,
     MapaSitioComponent,
+    PuntuacionComponent,
     ListarUsuariosComponent
   ],
   imports: [

@@ -1,0 +1,15 @@
+/* puntuacion.component.css */
+
+.rating {
+  display: flex;
+}
+
+.rating span {
+  cursor: pointer;
+  font-size: 24px;
+  color: #ccc; /* Color de las estrellas vacías */
+}
+
+.rating span.filled {
+  color: #ffc107; /* Color de las estrellas llenas */
+}

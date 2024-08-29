@@ -109,3 +109,16 @@ CREATE TABLE ItemsCarrito (
 
 ALTER TABLE usuarios ADD COLUMN status ENUM('Activo', 'Inactivo', 'Semiactivo');
 ALTER TABLE Usuarios ADD COLUMN lastLogin DATETIME DEFAULT NULL;
+
+CREATE TABLE Puntuaciones (
+    puntuacionId INT AUTO_INCREMENT PRIMARY KEY,
+    usuarioId INT NOT NULL,
+    bebidaId INT DEFAULT NULL,
+    platilloId INT DEFAULT NULL,
+    puntuacion INT NOT NULL,
+    comentario TEXT,
+    FOREIGN KEY (usuarioId) REFERENCES Usuarios(usuarioId),
+    FOREIGN KEY (bebidaId) REFERENCES Bebidas(bebidaId),
+    FOREIGN KEY (platilloId) REFERENCES Platillos(platilloId),
+    CHECK ((bebidaId IS NOT NULL) OR (platilloId IS NOT NULL))
+);
