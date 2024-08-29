@@ -9,6 +9,12 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenubarModule } from 'primeng/menubar';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { TagModule } from 'primeng/tag';
+import { CarouselModule } from 'primeng/carousel';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
+
 //Components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +36,10 @@ import { ContactoComponent } from './footer/contacto/contacto.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { PuntuacionComponent } from './components/usuarios/puntuacion/puntuacion.component';
+import { ListarUsuariosComponent } from './components/administrador/listar-usuarios/listar-usuarios.component';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -49,7 +59,8 @@ import { PuntuacionComponent } from './components/usuarios/puntuacion/puntuacion
     FaqsComponent,
     ContactoComponent,
     MapaSitioComponent,
-    PuntuacionComponent
+    PuntuacionComponent,
+    ListarUsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -63,8 +74,15 @@ import { PuntuacionComponent } from './components/usuarios/puntuacion/puntuacion
     MenubarModule,
     MatButtonModule, // Añadir ReactiveFormsModule a la lista de imports
     SpeedDialModule,
-    SplitButtonModule
-
+    SplitButtonModule,
+    CardModule,
+    TableModule,
+    CommonModule,
+    TagModule,
+    CarouselModule,
+    FieldsetModule,
+    PanelModule,
+    DialogModule
   ],
   providers: [
   provideHttpClient(withFetch()),

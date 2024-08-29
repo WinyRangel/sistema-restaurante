@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Usuario } from '../Interfaces/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private isAuthenticated: boolean = false;
   private rol: string = '';
+  private url = 'http://localhost:3002/api/users';
   private urlRegistro = 'http://localhost:3002/api/users/registro';
   private urlLogin = 'http://localhost:3002/api/users/login';
   private authStatusListener = new Subject<boolean>();  
@@ -147,4 +149,16 @@ export class AuthService {
     }
     return null;
   }
+
+  obtenerUsuarios(): Observable<any> {
+    return this.http.get(this.url);
+  }
+
+  eliminarUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+
 }
