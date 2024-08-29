@@ -23,6 +23,10 @@ export class HomeComponent implements OnInit {
   selectedBebida: Bebida | null = null;
   nuevoComentario: string = '';
 
+  usuarioAutenticado: boolean = false;
+  nombreUsuario: string | null = null;
+  rol: string | null = null;
+
   constructor(
     private _platilloService: PlatilloService,
     private authService: AuthService,
@@ -35,6 +39,27 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getListBebidas();
     this.getListPlatillos();
+
+
+    //ocultar 
+    // Inicializa el estado de autenticación
+    this.usuarioAutenticado = this.authService.estaAutenticado();
+    if (this.usuarioAutenticado) {
+      this.nombreUsuario = this.authService.obtenerNombreUsuario();
+      this.rol = this.authService.obtenerRol();
+    }
+
+    // Suscríbete al listener de estado de autenticación
+    this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.usuarioAutenticado = isAuthenticated;
+      if (isAuthenticated) {
+        this.nombreUsuario = this.authService.obtenerNombreUsuario();
+        this.rol = this.authService.obtenerRol();
+      } else {
+        this.nombreUsuario = null;
+        this.rol = null;
+      }
+    });
   }
 
   getListBebidas() {

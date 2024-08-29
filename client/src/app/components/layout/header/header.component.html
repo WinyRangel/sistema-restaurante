@@ -18,6 +18,9 @@
         <li>
           <a class="nav-link"  *ngIf="rol === 'admin'" href="/listar-usuarios" >Usuarios</a>
         </li>
+        <li class="nav-item" *ngIf="rol === 'admin'">
+          <a class="nav-link" href="/ordenes">Ordenes</a>
+        </li>
         <li class="nav-item" *ngIf="!usuarioAutenticado">
           <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
         </li>

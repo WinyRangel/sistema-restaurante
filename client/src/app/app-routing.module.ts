@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'añadir-bebida', component: AddEditBebidasComponent },
   { path: 'edit-bebida/:id', component: AddEditBebidasComponent },
   { path: 'listar-usuarios', component: ListarUsuariosComponent},
+  { path:'ordenes', component: OrdenesComponent},
   //usuario
   { path: 'ver-platillos', component: ListarPlatillosComponent },
   { path: 'carrito', component: CarritoComponent},
@@ -39,7 +40,6 @@ const routes: Routes = [
   { path: 'faqs', component: FaqsComponent},
   { path: 'mapa-sitio', component: MapaSitioComponent},
   { path: 'sobre-nosotros', component: SobreNosotrosComponent},
-  { path:'ordenes', component: OrdenesComponent},
   { path: '**', redirectTo: 'error404'}
 
 ];

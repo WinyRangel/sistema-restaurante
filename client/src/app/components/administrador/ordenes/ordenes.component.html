@@ -1,4 +1,4 @@
-<div *ngIf="ordenes.length === 0" class="alert alert-warning">
+<div *ngIf="ordenes.length === 0 && rol !== 'admin'"class="alert alert-warning">
     <h4 class="alert-heading">No hay órdenes para mostrar</h4>
     <p>No se encontraron órdenes en el sistema.</p>
   </div>
