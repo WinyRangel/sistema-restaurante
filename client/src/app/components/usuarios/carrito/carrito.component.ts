@@ -23,9 +23,51 @@ export class CarritoComponent implements OnInit {
     this.carritoService = CarritoService.getInstance(this.http);
    }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.mostrarCarrito();
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+  
+    if (status === 'aceptado') {
+      this.mostrarCarritoYGuardar(); // Nuevo método que maneja el flujo
+    } else if (status === 'cancelado') {
+      Swal.fire('Pago cancelado', 'El pago fue cancelado', 'info');
+    }
   }
+  
+  mostrarCarritoYGuardar(): void {
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      Swal.fire('Error', 'No se puede mostrar el carrito, usuario no autenticado', 'error');
+      return;
+    }
+  
+    this.carritoService.mostrarCarrito(userId).subscribe(
+      (data) => {
+        this.carritoItems = data;
+        this.calcularTotal();
+        
+        // Llama a saveCart después de calcular el total
+        const tipoPagoId = 1;
+        this.paymentService.saveCart(this.total, tipoPagoId).subscribe(
+          (saveResponse) => {
+            Swal.fire('Pago aceptado', 'El pago fue aceptado', 'success');
+            console.log('Carrito guardado exitosamente', saveResponse);
+            this.mostrarCarrito();
+          },
+          (saveError) => {
+            console.error('Error al guardar el carrito', saveError);
+            Swal.fire('Error', 'No se pudo guardar el carrito', 'error');
+          }
+        );
+      },
+      (error) => {
+        console.error('Error al obtener el carrito', error);
+        Swal.fire('Error', 'No se pudo cargar el carrito', 'error');
+      }
+    );
+  }
+  
 
   mostrarCarrito(): void {
     const userId = this.authService.getCarritoId();
@@ -154,6 +196,7 @@ export class CarritoComponent implements OnInit {
       (response) => {
         // Redirige al usuario a PayPal para completar el pago
         window.location.href = response.links[1].href;
+        // Llama a saveCart() para guardar los datos del carrito
       },
       (error) => {
         console.error('Error al crear la orden de pago', error);
@@ -161,7 +204,29 @@ export class CarritoComponent implements OnInit {
       }
     );
   }
-  
+  // pagar(total: number) {
+  //   this.paymentService.createOrder(total).subscribe(
+  //       (response) => {
+  //           window.location.href = response.links[1].href;
+  //       },
+  //       (error) => {
+  //           console.error('Error al crear la orden de pago', error);
+  //           Swal.fire('Error', 'No se pudo crear la orden de pago', 'error');
+  //       }
+  //   );
+  //   // Asumiendo que tienes un tipoPagoId seleccionado en tu componente
+  //   const tipoPagoId = 1; // Por ejemplo, 1 para PayPal
+  //   this.paymentService.saveCart(total, tipoPagoId).subscribe(
+  //       (saveResponse) => {
+  //           console.log('Carrito guardado exitosamente', saveResponse);
+  //       },
+  //       (saveError) => {
+  //           console.error('Error al guardar el carrito', saveError);
+  //           Swal.fire('Error', 'No se pudo guardar el carrito', 'error');
+  //       }
+  //   );
+  // }
+
 
   actualizarCantidad(itemCarritoId: number, cantidad: number): void {
     this.carritoService.actualizarCantidadArticulo(itemCarritoId, cantidad).subscribe(
