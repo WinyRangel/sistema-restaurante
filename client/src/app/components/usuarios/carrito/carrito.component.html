@@ -65,4 +65,4 @@
     <h3>Total: {{ total | currency:'MXN' }}</h3>
     <button (click)="pagar(total)" class="btn btn-primary">Pagar con PayPal</button>
     <button (click)="vaciarCarrito()" class="btn btn-danger">Vaciar Carrito</button>
-    <button type="button" class="btn btn-success">Continuar Comprando</button>
+    <button type="button" class="btn btn-success" [routerLink]="['/']">Continuar Comprando</button>

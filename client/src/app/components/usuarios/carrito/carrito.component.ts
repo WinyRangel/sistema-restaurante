@@ -160,7 +160,7 @@ export class CarritoComponent implements OnInit {
 
 
   vaciarCarrito(): void {
-    const userId = this.authService.getUserId();
+    const userId = this.authService.getCarritoId();
     if (!userId) {
       Swal.fire('Error', 'No se puede vaciar el carrito, usuario no autenticado', 'error');
       return;

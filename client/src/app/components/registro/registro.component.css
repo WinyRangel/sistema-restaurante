@@ -31,3 +31,10 @@ a {
 a:hover {
     color: #0056b3;
 }
+
+/**Para las validaciones***/
+
+.text-danger {
+    color: #dc3545;
+  }
+  
