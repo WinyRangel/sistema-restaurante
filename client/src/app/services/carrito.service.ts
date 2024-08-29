@@ -35,6 +35,10 @@ export class CarritoService {
         return this.http.put<any>(`${this.apiUrl}/actualizar-cantidad`, { itemCarritoId, cantidad });
     }
 
+    obtenerOrdenes(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/ordenes`);
+    }
+
     // agregarCarrito(item: { userId: number, platilloId: number, cantidad: number }): Observable<any> {
     //     return this.http.post<any>(`${this.apiUrl}/agregar`, item);
     // }

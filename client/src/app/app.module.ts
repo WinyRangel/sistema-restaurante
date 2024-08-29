@@ -40,6 +40,7 @@ import { ListarUsuariosComponent } from './components/administrador/listar-usuar
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { OrdenesComponent } from './components/administrador/ordenes/ordenes.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { CommonModule } from '@angular/common';
     ContactoComponent,
     MapaSitioComponent,
     PuntuacionComponent,
-    ListarUsuariosComponent
+    ListarUsuariosComponent,
+    OrdenesComponent
   ],
   imports: [
     BrowserModule,

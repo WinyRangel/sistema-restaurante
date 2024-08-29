@@ -29,6 +29,7 @@ app.use('/api/carrito', require('./routes/carrito.routes'));
 app.use('/api/payment', require('./routes/payment.routes'));
 app.use('/api/puntuacion', require('./routes/puntuacion.routes'));
 
+
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {

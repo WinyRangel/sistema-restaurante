@@ -1,0 +1,36 @@
+<div *ngIf="ordenes.length === 0" class="alert alert-warning">
+    <h4 class="alert-heading">No hay órdenes para mostrar</h4>
+    <p>No se encontraron órdenes en el sistema.</p>
+  </div>
+  
+  <table *ngIf="ordenes.length > 0" class="table table-hover table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>Orden ID</th>
+        <th>Nombre Usuario</th>
+        <th>Dirección</th>
+        <th>Email</th>
+        <th>Fecha Orden</th>
+        <th>Total</th>
+        <th>Estatus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let orden of ordenes">
+        <td>{{ orden.ordenId }}</td>
+        <td>{{ orden.nombreUsuario }}</td>
+        <td>{{ orden.direccionUsuario }}</td>
+        <td>{{ orden.emailUsuario }}</td>
+        <td>{{ orden.fechaOrden | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ orden.total | currency }}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Estatus de la Orden">
+            <button type="button" class="btn btn-success">Recibido</button>
+            <button type="button" class="btn btn-warning">Atendiendo</button>
+            <button type="button" class="btn btn-primary">Entregado</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

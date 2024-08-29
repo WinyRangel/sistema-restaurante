@@ -15,6 +15,7 @@ import { FaqsComponent } from './footer/faqs/faqs.component';
 import { MapaSitioComponent } from './footer/mapa-sitio/mapa-sitio.component';
 import { SobreNosotrosComponent } from './footer/sobre-nosotros/sobre-nosotros.component';
 import { ListarUsuariosComponent } from './components/administrador/listar-usuarios/listar-usuarios.component';
+import { OrdenesComponent } from './components/administrador/ordenes/ordenes.component';
 
 const routes: Routes = [
 
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'faqs', component: FaqsComponent},
   { path: 'mapa-sitio', component: MapaSitioComponent},
   { path: 'sobre-nosotros', component: SobreNosotrosComponent},
+  { path:'ordenes', component: OrdenesComponent},
   { path: '**', redirectTo: 'error404'}
 
 ];
