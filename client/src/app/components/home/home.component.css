@@ -99,9 +99,47 @@
       margin-bottom: 10px; /* Espacio entre ítems en pantallas pequeñas */
     }
   }
-  
-  .swal2-zindex {
-    z-index: 2000; /* Asegúrate de que sea mayor que el z-index del p-dialog */
+
+  .swal2-front {
+    z-index: 2000 !important;  
   }
   
+  
+/* dialogo */
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;  
+}
+
+.rating-container p {
+  margin: 0; 
+}
+
+.dialog-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;  
+}
+
+.info-container {
+  flex: 1;
+}
+
+.image-container {
+  flex-shrink: 0;
+  max-width: 40%;  
+}
+
+.dialog-image {
+  width: 100%;
+  height: auto;
+  max-width: 300px; 
+}
+
+
+
+
   

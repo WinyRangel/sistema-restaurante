@@ -1,7 +1,7 @@
 <div class="rating">
   <span *ngFor="let star of [1, 2, 3, 4, 5]" 
-        (click)="rate(star)" 
-        [class.filled]="star <= rating">
-    &#9733; <!-- Código Unicode para una estrella -->
+        [class.filled]="star <= rating" 
+        (click)="rate(star)">
+    ★
   </span>
 </div>
