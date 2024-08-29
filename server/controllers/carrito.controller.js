@@ -51,8 +51,8 @@ const mostrarCarrito = async (req, res) => {
 
     const result = rows.map(item => ({
       ...item,
-      imgPlatillo: item.imgPlatillo ? `http://localhost:3002/uploads/${item.imgPlatillo}` : null,
-      imgBebida: item.imgBebida ? `http://localhost:3002/uploads/${item.imgBebida}` : null,
+      imgPlatillo: item.imgPlatillo ? `http://3.128.24.47:3002/uploads/${item.imgPlatillo}` : null,
+      imgBebida: item.imgBebida ? `http://3.128.24.47:3002/uploads/${item.imgBebida}` : null,
     }));
 
     res.json(result); 

@@ -5,7 +5,7 @@ require('dotenv').config();
 const PAYPAL_API_CLIENT = process.env.PAYPAL_API_CLIENT;
 const PAYPAL_API_SECRET = process.env.PAYPAL_API_SECRET;
 const PAYPAL_API = process.env.PAYPAL_API; // URL sandbox or live for your app
-const HOST = 'http://localhost:3002/api/payment';
+const HOST = 'http://3.128.24.47:3002/api/payment';
 
 const connectDB = async () => {
   try {

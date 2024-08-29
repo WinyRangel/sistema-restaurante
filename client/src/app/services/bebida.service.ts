@@ -7,7 +7,7 @@ import { Bebida } from '../Interfaces/Bebida';
   providedIn: 'root'
 })
 export class BebidaService {
-  private apiUrl = 'http://localhost:3002/api/bebidas';
+  private apiUrl = 'http://3.128.24.47:3002/api/bebidas';
 
   constructor(private http: HttpClient) { }
 
@@ -32,7 +32,7 @@ export class BebidaService {
   }
 
   agregarCarrito(item: { carritoId: number, bebidaId: number, cantidad: number }): Observable<any> {
-    return this.http.post<any>('http://localhost:3002/api/carrito', item);
+    return this.http.post<any>('http://3.128.24.47:3002/api/carrito', item);
   }
 
   

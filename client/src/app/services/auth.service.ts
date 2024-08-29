@@ -11,9 +11,9 @@ import { Usuario } from '../Interfaces/Usuario';
 export class AuthService {
   private isAuthenticated: boolean = false;
   private rol: string = '';
-  private url = 'http://localhost:3002/api/users';
-  private urlRegistro = 'http://localhost:3002/api/users/registro';
-  private urlLogin = 'http://localhost:3002/api/users/login';
+  private url = 'http://3.128.24.47:3002/api/users';
+  private urlRegistro = 'http://3.128.24.47:3002/api/users/registro';
+  private urlLogin = 'http://3.128.24.47:3002/api/users/login';
   private authStatusListener = new Subject<boolean>();  
   private carritoId: number | null = null;  
 

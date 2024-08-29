@@ -20,7 +20,7 @@ const getBebidas = async (req, res) => {
     const [rows] = await connection.query('SELECT * FROM Bebidas');
     const bebidas = rows.map(bebida => ({
       ...bebida,
-      imagen: bebida.imagen ? `http://localhost:3002/uploads/${bebida.imagen}` : null 
+      imagen: bebida.imagen ? `http://3.128.24.47:3002/uploads/${bebida.imagen}` : null 
     }));
     res.json(bebidas);
   } catch (error) {

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PuntuacionService {
-  private apiUrl = 'http://localhost:3002/api/puntuacion';
+  private apiUrl = 'http://3.128.24.47:3002/api/puntuacion';
 
   constructor(private http: HttpClient) { }
 
