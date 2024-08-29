@@ -122,3 +122,6 @@ CREATE TABLE Puntuaciones (
     FOREIGN KEY (platilloId) REFERENCES Platillos(platilloId),
     CHECK ((bebidaId IS NOT NULL) OR (platilloId IS NOT NULL))
 );
+
+ALTER TABLE Ordenes
+ADD COLUMN estatus ENUM('Recibido', 'Atendiendo', 'Entregado') DEFAULT 'Recibido';

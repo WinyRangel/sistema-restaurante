@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../../services/carrito.service';
 import { AuthService } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -46,6 +48,29 @@ export class OrdenesComponent implements OnInit{
     });
   }
 
-
+  actualizarEstado(ordenId: number, nuevoEstado: string) {
+    this._carritoService.actualizarEstadoOrden(ordenId, nuevoEstado).subscribe(
+      response => {
+        console.log('Estado actualizado:', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Actualización Exitosa',
+          text: 'El estado de la orden ha sido actualizado correctamente.',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          this.getListPlatillos(); // Refresca la lista de órdenes
+        });
+      },
+      error => {
+        console.error('Error al actualizar el estado:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Hubo un problema al actualizar el estado de la orden.',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    );
+  }
 
 }

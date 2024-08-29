@@ -134,7 +134,7 @@ const obtenerOrdenes = async (req, res) => {
           u.email AS emailUsuario,
           o.fechaOrden,
           (COALESCE(SUM(p.precio * do.cantidad), 0) +
-          COALESCE(SUM(b.precio * do.cantidad), 0)) AS total
+          COALESCE(SUM(b.precio * do.cantidad), 0)) AS total, o.estatus as estatus
       FROM 
           Ordenes o
           JOIN Usuarios u ON o.usuarioId = u.usuarioId
@@ -207,8 +207,8 @@ const obtenerOrdenesPorUsuario = async (req, res) => {
 
 
 const actualizarEstadoOrden = async (req, res) => {
-  const { ordenId } = req.params;  // Obtener ordenId de los parámetros de ruta
-  const { nuevoEstado } = req.body; // Obtener nuevoEstado del cuerpo de la solicitud
+  const { ordenId } = req.params;  
+  const { nuevoEstado } = req.body; 
 
   try {
     const connection = await connectDB();
@@ -219,7 +219,6 @@ const actualizarEstadoOrden = async (req, res) => {
       return res.status(400).json({ msg: 'Estado no válido' });
     }
 
-    // Actualizar el estado de la orden
     const [result] = await connection.query('UPDATE Ordenes SET estatus = ? WHERE ordenId = ?', [nuevoEstado, ordenId]);
 
     if (result.affectedRows === 0) {

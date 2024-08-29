@@ -13,6 +13,7 @@
         <th>Fecha Orden</th>
         <th>Total</th>
         <th>Estatus</th>
+        <th>Cambiar</th>
       </tr>
     </thead>
     <tbody>
@@ -23,11 +24,12 @@
         <td>{{ orden.emailUsuario }}</td>
         <td>{{ orden.fechaOrden | date: 'dd/MM/yyyy HH:mm' }}</td>
         <td>{{ orden.total | currency }}</td>
+        <td>{{orden.estatus}}</td>
         <td>
           <div class="btn-group" role="group" aria-label="Estatus de la Orden">
-            <button type="button" class="btn btn-success">Recibido</button>
-            <button type="button" class="btn btn-warning">Atendiendo</button>
-            <button type="button" class="btn btn-primary">Entregado</button>
+            <button type="button" class="btn btn-success" (click)="actualizarEstado(orden.ordenId, 'Recibido')">Recibido</button>
+            <button type="button" class="btn btn-warning" (click)="actualizarEstado(orden.ordenId, 'Atendiendo')">Atendiendo</button>
+            <button type="button" class="btn btn-primary" (click)="actualizarEstado(orden.ordenId, 'Entregado')">Entregado</button>
           </div>
         </td>
       </tr>
