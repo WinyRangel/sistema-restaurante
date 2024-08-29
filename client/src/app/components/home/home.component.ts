@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   visible: boolean = false;
   selectedPlatillo: Platillo | null = null;
   selectedBebida: Bebida | null = null;
+  nuevoComentario: string = '';
 
   constructor(
     private _platilloService: PlatilloService,
@@ -55,21 +56,24 @@ export class HomeComponent implements OnInit {
   loadPuntuacionesBebidas() {
     this.listBebidas.forEach(bebida => {
       this.puntuacionService.obtenerPuntuaciones(bebida.bebidaId).subscribe((puntuaciones: any[]) => {
-        // Asumiendo que la puntuación más reciente es la correcta
         if (puntuaciones.length > 0) {
           bebida.rating = puntuaciones[0].puntuacion;
+          bebida.comentarios = puntuaciones
+            .filter(p => p.comentario && p.comentario.trim() !== '')//para que no se traiga los que no comentan
+            .map(p => ({ usuarioNombre: p.usuarioNombre, comentario: p.comentario }));
         }
       });
     });
   }
+  
 
   loadPuntuacionesPlatillos() {
     this.listPlatillos.forEach(platillo => {
       this.puntuacionService.obtenerPuntuaciones(undefined, platillo.platilloId).subscribe((puntuaciones: any[]) => {
-        // Asumiendo que la puntuación más reciente es la correcta
-        if (puntuaciones.length > 0) {
-          platillo.rating = puntuaciones[0].puntuacion;
-        }
+        platillo.rating = puntuaciones.find(p => p.puntuacionId)?.puntuacion || 0;
+        platillo.comentarios = puntuaciones
+          .filter(p => p.comentario && p.comentario.trim() !== '')
+          .map(p => ({ usuarioNombre: p.usuarioNombre, comentario: p.comentario }));
       });
     });
   }
@@ -198,4 +202,31 @@ export class HomeComponent implements OnInit {
       this.cd.detectChanges(); // Fuerza la detección de cambios para reflejar la actualización en la vista
     }
   }
+
+
+  //COMENTARIO
+  agregarComentario() {
+    if (!this.nuevoComentario.trim()) {
+      Swal.fire('Error', 'El comentario no puede estar vacío', 'error');
+      return;
+    }
+
+    const usuarioId = this.authService.getUserId();
+    const comentarioData = {
+      usuarioId,
+      bebidaId: this.selectedBebida ? this.selectedBebida.bebidaId : null,
+      platilloId: this.selectedPlatillo ? this.selectedPlatillo.platilloId : null,
+      puntuacion: this.selectedPlatillo ? this.selectedPlatillo.rating : this.selectedBebida ? this.selectedBebida.rating : 0,
+      comentario: this.nuevoComentario
+    };
+
+    this.puntuacionService.agregarPuntuacion(comentarioData).subscribe(() => {
+      this.nuevoComentario = ''; // Limpiar el campo de texto
+      this.loadPuntuacionesPlatillos(); 
+      this.loadPuntuacionesBebidas(); 
+    }, (error) => {
+      Swal.fire('Error', 'No se pudo agregar el comentario', 'error');
+    });
+  }
+
 }

@@ -6,4 +6,6 @@ export interface Platillo {
     precio: number;
     imagen: string;
     rating?: number;
+    comentarios?: { comentario: string; usuarioNombre: string }[];
+
 }

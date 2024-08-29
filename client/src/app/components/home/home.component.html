@@ -56,7 +56,7 @@
     </div>
   </div>
 </div>
- 
+
 <p-dialog 
     header="Detalles" 
     [(visible)]="visible" 
@@ -64,11 +64,10 @@
     [breakpoints]="{ '1199px': '80vw', '575px': '90vw' }" 
     [style]="{ width: '60vw' }" 
     [draggable]="false" 
-    [resizable]="false"
-    >
+    [resizable]="false">
     
-    <div class="dialog-content">
-        <div class="info-container">
+    <div class="dialog-content d-flex">
+        <div class="info-container flex-grow-1">
             <div *ngIf="selectedPlatillo">
                 <h2>{{ selectedPlatillo.nombre }}</h2>
                 <div class="rating-container">
@@ -79,9 +78,14 @@
                 <p>Descripción: {{ selectedPlatillo.descripcion }}</p>
 
                 <h4>Comentarios</h4>
-                <p>comentario</p>
+                <div *ngFor="let comentario of selectedPlatillo.comentarios" class="comment">
+                    <p><strong>{{ comentario.usuarioNombre }}:</strong> {{ comentario.comentario }}</p>
+                </div>
 
-                
+                <div class="comment-form">
+                    <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario aquí..." rows="3"></textarea>
+                    <button (click)="agregarComentario()">Agregar Comentario</button>
+                </div>
             </div>
             
             <div *ngIf="selectedBebida">
@@ -89,10 +93,19 @@
                 <div class="rating-container">
                     <p>Tu voto:</p>
                     <app-puntuacion [rating]="selectedBebida.rating || 0" (ratingChange)="onRatingChangeBebida(selectedBebida.bebidaId!, $event)"></app-puntuacion>
-                    
                 </div>
                 <p>Precio: ${{ selectedBebida.precio }}</p>
                 <p>Descripción: {{ selectedBebida.descripcion }}</p>
+
+                <h4>Comentarios</h4>
+                <div *ngFor="let comentario of selectedBebida.comentarios" class="comment">
+                    <p><strong>{{ comentario.usuarioNombre }}:</strong> {{ comentario.comentario }}</p>
+                </div>
+
+                <div class="comment-form">
+                    <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario aquí..." rows="3"></textarea>
+                    <button (click)="agregarComentario()">Agregar Comentario</button>
+                </div>
             </div>
         </div>
         
