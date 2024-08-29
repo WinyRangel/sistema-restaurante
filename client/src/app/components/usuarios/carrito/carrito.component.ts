@@ -28,7 +28,7 @@ export class CarritoComponent implements OnInit {
   }
 
   mostrarCarrito(): void {
-    const userId = this.authService.getUserId();
+    const userId = this.authService.getCarritoId();
     if (!userId) {
       Swal.fire('Error', 'No se puede mostrar el carrito, usuario no autenticado', 'error');
       return;
