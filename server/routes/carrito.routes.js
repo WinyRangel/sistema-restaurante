@@ -18,7 +18,7 @@ router.delete('/vaciar/:carritoId', vaciarCarrito)
 router.put('/actualizar-cantidad',actualizarCantidadArticulo)
 router.get('/ordenes', obtenerOrdenes);
 router.get('/ordenes/:usuarioId', obtenerOrdenesPorUsuario);
-router.put('/estatus/:OrdenId', actualizarEstadoOrden);
+router.put('/estatus/:ordenId', actualizarEstadoOrden);
 
 
 module.exports = router;
