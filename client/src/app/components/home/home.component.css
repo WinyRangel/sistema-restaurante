@@ -1,66 +1,25 @@
-/* .carousel-item img {
-    filter: brightness(70%); 
+/* Estilo común para los botones en las tarjetas */
+.card-footer {
+  display: flex;
+  justify-content: space-between; /* Espacio uniforme entre los botones */
+  gap: 1rem; /* Espacio entre los botones */
 }
 
-.carousel-caption {
-    bottom: 20%;
+.card-footer .p-button {
+  flex: 1; /* Asegura que los botones ocupen el mismo espacio */
 }
 
-.carousel-title {
-    font-family: 'Lobster', cursive;
-    font-size: 2.5rem;
-    color: #ffbb00;
+.card-footer .p-button:not(:last-child) {
+  margin-right: 0.5rem; /* Espacio adicional entre botones, si es necesario */
 }
 
-.carousel-text {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.2rem;
-    color: white;
+.card-footer .p-button.w-full {
+  flex: 2; /* Ocupa más espacio si es necesario */
 }
 
-.card-body {
-    background-color: #ffffff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+.card-footer .p-button.btn-sm {
+  padding: 0.375rem 0.75rem; /* Tamaño consistente para botones pequeños */
 }
-
-.card {
-    border: none;
-    background: transparent;
-}
-
-.card:hover .card-body {
-    transform: translateY(-10px); 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
-}
-
-.card-title {
-    color: #333333;
-    font-weight: 700;
-    margin-top: 10px;
-}
-
-.card-img-top {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: white;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-}
-
-.card-link {
-    text-decoration: none;
-}
-
-.card-link:hover .card-title {
-    color: #ffbb00; 
-} 
-
- */
-
 
 
 /* Estilo general para la navbar */
@@ -288,4 +247,19 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+
+.rating-container span {
+  font-size: 1.2rem; /* Tamaño del icono */
+  color: #ffd700; /* Color dorado para el icono de estrella */
+}
+
+.rating-container p {
+  margin: 0;
 }

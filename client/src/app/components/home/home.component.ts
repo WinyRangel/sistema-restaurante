@@ -8,6 +8,8 @@ import { BebidaService } from '../../services/bebida.service';
 import { Bebida } from '../../Interfaces/Bebida';
 import { Platillo } from '../../interfaces/Platillo';
 import { PuntuacionService } from '../../services/puntuacion.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
@@ -26,6 +28,7 @@ export class HomeComponent implements OnInit {
   usuarioAutenticado: boolean = false;
   nombreUsuario: string | null = null;
   rol: string | null = null;
+  
 
   constructor(
     private _platilloService: PlatilloService,
@@ -67,6 +70,7 @@ export class HomeComponent implements OnInit {
       this.listBebidas = data;
       this.loadPuntuacionesBebidas(); // Cargar puntuaciones para las bebidas
       this.cd.detectChanges();
+      this.obtenerPuntuacionPromedio(); 
     });
   }
 
@@ -75,33 +79,61 @@ export class HomeComponent implements OnInit {
       this.listPlatillos = data;
       this.loadPuntuacionesPlatillos(); // Cargar puntuaciones para los platillos
       this.cd.detectChanges();
+      this.obtenerPuntuacionPromedio(); 
     });
   }
+
 
   loadPuntuacionesBebidas() {
     this.listBebidas.forEach(bebida => {
-      this.puntuacionService.obtenerPuntuaciones(bebida.bebidaId).subscribe((puntuaciones: any[]) => {
-        if (puntuaciones.length > 0) {
-          bebida.rating = puntuaciones[0].puntuacion;
+      this.puntuacionService.obtenerPuntuacionPromedio(bebida.bebidaId).subscribe((promedio: any) => {
+        bebida.rating = promedio || 0; // Asignar el promedio obtenido
+        this.puntuacionService.obtenerPuntuaciones(bebida.bebidaId).subscribe((puntuaciones: any[]) => {
           bebida.comentarios = puntuaciones
-            .filter(p => p.comentario && p.comentario.trim() !== '')//para que no se traiga los que no comentan
+            .filter(p => p.comentario && p.comentario.trim() !== '') // Para que no se traigan los que no comentan
             .map(p => ({ usuarioNombre: p.usuarioNombre, comentario: p.comentario }));
-        }
+        });
       });
     });
   }
-  
 
   loadPuntuacionesPlatillos() {
     this.listPlatillos.forEach(platillo => {
-      this.puntuacionService.obtenerPuntuaciones(undefined, platillo.platilloId).subscribe((puntuaciones: any[]) => {
-        platillo.rating = puntuaciones.find(p => p.puntuacionId)?.puntuacion || 0;
-        platillo.comentarios = puntuaciones
-          .filter(p => p.comentario && p.comentario.trim() !== '')
-          .map(p => ({ usuarioNombre: p.usuarioNombre, comentario: p.comentario }));
+      this.puntuacionService.obtenerPuntuacionPromedio(undefined, platillo.platilloId).subscribe((promedio: any) => {
+        platillo.rating = promedio || 0; // Asignar el promedio obtenido
+        this.puntuacionService.obtenerPuntuaciones(undefined, platillo.platilloId).subscribe((puntuaciones: any[]) => {
+          platillo.comentarios = puntuaciones
+            .filter(p => p.comentario && p.comentario.trim() !== '')
+            .map(p => ({ usuarioNombre: p.usuarioNombre, comentario: p.comentario }));
+        });
       });
     });
   }
+
+  // loadPuntuacionesBebidas() {
+  //   this.listBebidas.forEach(bebida => {
+  //     this.puntuacionService.obtenerPuntuaciones(bebida.bebidaId).subscribe((puntuaciones: any[]) => {
+  //       if (puntuaciones.length > 0) {
+  //         bebida.rating = puntuaciones[0].puntuacion;
+  //         bebida.comentarios = puntuaciones
+  //           .filter(p => p.comentario && p.comentario.trim() !== '')//para que no se traiga los que no comentan
+  //           .map(p => ({ usuarioNombre: p.usuarioNombre, comentario: p.comentario }));
+  //       }
+  //     });
+  //   });
+  // }
+  
+
+  // loadPuntuacionesPlatillos() {
+  //   this.listPlatillos.forEach(platillo => {
+  //     this.puntuacionService.obtenerPuntuaciones(undefined, platillo.platilloId).subscribe((puntuaciones: any[]) => {
+  //       platillo.rating = puntuaciones.find(p => p.puntuacionId)?.puntuacion || 0;
+  //       platillo.comentarios = puntuaciones
+  //         .filter(p => p.comentario && p.comentario.trim() !== '')
+  //         .map(p => ({ usuarioNombre: p.usuarioNombre, comentario: p.comentario }));
+  //     });
+  //   });
+  // }
 
   agregarCarritoBebida(bebidaId: number) {
     const carritoId = this.authService.getCarritoId();
@@ -253,5 +285,21 @@ export class HomeComponent implements OnInit {
       Swal.fire('Error', 'No se pudo agregar el comentario', 'error');
     });
   }
+
+
+// Método para obtener y actualizar la puntuación promedio de bebidas y platillos
+obtenerPuntuacionPromedio() {
+  this.listBebidas.forEach(bebida => {
+    this.puntuacionService.obtenerPuntuacionPromedio(bebida.bebidaId).subscribe((resultado: any) => {
+      bebida.rating = resultado.promedio || 0;
+    });
+  });
+
+  this.listPlatillos.forEach(platillo => {
+    this.puntuacionService.obtenerPuntuacionPromedio(undefined, platillo.platilloId).subscribe((resultado: any) => {
+      platillo.rating = resultado.promedio || 0;
+    });
+  });
+}
 
 }

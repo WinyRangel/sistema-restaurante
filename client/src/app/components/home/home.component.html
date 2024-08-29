@@ -14,6 +14,9 @@
   </li>
 </ul>
 <br>
+
+
+<!-- Tarjetas de platillos -->
 <div class="container text-center mt-3 mb-3">
   <div class="row">
     <div class="col-md-3 mb-3" *ngFor="let platillo of listPlatillos">
@@ -21,12 +24,14 @@
         <ng-template pTemplate="header">
           <img alt="Card" src="{{platillo.imagen}}" />
         </ng-template>
-        <!-- <p>
-          {{platillo.descripcion}}
-        </p> -->
         <ng-template pTemplate="footer">
-          <div class="d-flex gap-3 mt-1">
-            <p-button label="Detalles" severity="info" class="w-100" (onClick)="verDetallesPlatillo(platillo)" />
+          <div class="card-footer">
+            <!-- Mostrar promedio con icono de estrella -->
+            <div class="rating-container">
+              <span>&#9733;</span> <!-- Estrella llena -->
+              <p class="d-inline ms-2">{{ platillo.rating | number:'1.1-1' }}</p>
+            </div>
+            <p-button label="Detalles" severity="info" class="w-full" (onClick)="verDetallesPlatillo(platillo)" />
             <p-button icon="pi pi-cart-plus" (click)="agregarCarritoPlatillo(platillo.platilloId!)" />
           </div>
         </ng-template>
@@ -35,27 +40,30 @@
   </div>
 </div>
 
-
+<!-- Tarjetas de bebidas -->
 <div class="container text-center mt-3 mb-3">
   <div class="row">
-    <div  class="col-md-3 mb-3" *ngFor="let bebida of listBebidas">
-      <p-card header=" {{bebida.nombre}} " subheader=" $ {{bebida.precio }}" [style]="{ width: '100%' }">
-          <ng-template pTemplate="header">
-              <img alt="Card" src="{{bebida.imagen}}" />
-          </ng-template>
-          <!-- <p>
-            {{bebida.descripcion}}
-          </p> -->
-          <ng-template pTemplate="footer">
-              <div class="flex gap-3 mt-1">
-                <p-button label="Detalles" severity="info" class="w-full" styleClass="w-full" (onClick)="verDetallesBebida(bebida)" />
-                <p-button icon="pi pi-cart-plus" (click)="agregarCarritoBebida(bebida.bebidaId!)"/>
-                </div>
-          </ng-template>
+    <div class="col-md-3 mb-3" *ngFor="let bebida of listBebidas">
+      <p-card header="{{bebida.nombre}}" subheader="$ {{bebida.precio}}" [style]="{ width: '100%' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="{{bebida.imagen}}" />
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <div class="card-footer">
+            <!-- Mostrar promedio con icono de estrella -->
+            <div class="rating-container">
+              <span>&#9733;</span> <!-- Estrella llena -->
+              <p class="d-inline ms-2">{{ bebida.rating | number:'1.1-1' }}</p>
+            </div>
+            <p-button label="Detalles" severity="info" class="w-full" (onClick)="verDetallesBebida(bebida)" />
+            <p-button icon="pi pi-cart-plus" (click)="agregarCarritoBebida(bebida.bebidaId!)" />
+          </div>
+        </ng-template>
       </p-card>
     </div>
   </div>
 </div>
+
 
 <p-dialog 
     header="Detalles" 

@@ -65,7 +65,35 @@ const obtenerPuntuaciones = async (req, res) => {
   }
 };
 
+// Obtener la puntuación promedio de un platillo o bebida
+const obtenerPuntuacionPromedio = async (req, res) => {
+  const { bebidaId, platilloId } = req.query;
+
+  if (!bebidaId && !platilloId) {
+    return res.status(400).json({ msg: 'Se debe proporcionar un bebidaId o platilloId' });
+  }
+
+  try {
+    const connection = await connectDB();
+
+    const [result] = await connection.query(
+      `SELECT AVG(puntuacion) AS puntuacionPromedio
+       FROM Puntuaciones
+       WHERE (bebidaId = ? OR platilloId = ?)`,
+      [bebidaId, platilloId]
+    );
+
+    const puntuacionPromedio = result[0].puntuacionPromedio;
+
+    res.json({ puntuacionPromedio });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Error al obtener la puntuación promedio' });
+  }
+};
+
 module.exports = {
   agregarPuntuacion,
-  obtenerPuntuaciones
+  obtenerPuntuaciones,
+  obtenerPuntuacionPromedio
 };

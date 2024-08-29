@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -26,5 +26,18 @@ export class PuntuacionService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
+  
+  obtenerPuntuacionPromedio(bebidaId?: number, platilloId?: number): Observable<any> {
+    let params = new HttpParams();
+    if (bebidaId) {
+      params = params.set('bebidaId', bebidaId.toString());
+    } else if (platilloId) {
+      params = params.set('platilloId', platilloId.toString());
+    }
+    
+    return this.http.get(`${this.apiUrl}/promedio`, { params });
+  }
 
+
+  
 }
