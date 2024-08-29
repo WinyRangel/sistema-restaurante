@@ -21,12 +21,12 @@
         <ng-template pTemplate="header">
           <img alt="Card" src="{{platillo.imagen}}" />
         </ng-template>
-        <p>
+        <!-- <p>
           {{platillo.descripcion}}
-        </p>
+        </p> -->
         <ng-template pTemplate="footer">
           <div class="d-flex gap-3 mt-1">
-            <p-button label="Detalles" severity="info" class="w-100" (onClick)="showDialog()" />
+            <p-button label="Detalles" severity="info" class="w-100" (onClick)="verDetallesPlatillo(platillo)" />
             <p-button icon="pi pi-cart-plus" (click)="agregarCarritoPlatillo(platillo.platilloId!)" />
           </div>
         </ng-template>
@@ -43,13 +43,13 @@
           <ng-template pTemplate="header">
               <img alt="Card" src="{{bebida.imagen}}" />
           </ng-template>
-          <p>
+          <!-- <p>
             {{bebida.descripcion}}
-          </p>
+          </p> -->
           <ng-template pTemplate="footer">
               <div class="flex gap-3 mt-1">
-                  <p-button label="Detalles" severity="info" class="w-full" styleClass="w-full" (onClick)="showDialog()" />
-                  <p-button icon="pi pi-cart-plus" (click)="agregarCarritoBebida(bebida.bebidaId!)"/>
+                <p-button label="Detalles" severity="info" class="w-full" styleClass="w-full" (onClick)="verDetallesBebida(bebida)" />
+                <p-button icon="pi pi-cart-plus" (click)="agregarCarritoBebida(bebida.bebidaId!)"/>
                 </div>
           </ng-template>
       </p-card>
@@ -57,4 +57,30 @@
   </div>
 </div>
  
+<p-dialog 
+    header="Detalles del Artículo" 
+    [(visible)]="visible" 
+    [modal]="true" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
+    [style]="{ width: '50vw' }" 
+    [draggable]="false" 
+    [resizable]="false">
+    
+    <div *ngIf="selectedPlatillo">
+        <h2>{{ selectedPlatillo.nombre }}</h2>
+        <p>Precio: ${{ selectedPlatillo.precio }}</p>
+        <p>Descripción: {{ selectedPlatillo.descripcion }}</p>
+        <img [src]="selectedPlatillo.imagen" alt="{{ selectedPlatillo.nombre }}" class="img-fluid">
+        <app-puntuacion [rating]="selectedPlatillo.rating || 0" (ratingChange)="onRatingChange(selectedPlatillo.platilloId!, $event)"></app-puntuacion>
+    </div>
+
+    <div *ngIf="selectedBebida">
+        <h2>{{ selectedBebida.nombre }}</h2>
+        <p>Precio: ${{ selectedBebida.precio }}</p>
+        <p>Descripción: {{ selectedBebida.descripcion }}</p>
+        <img [src]="selectedBebida.imagen" alt="{{ selectedBebida.nombre }}" class="img-fluid">
+        <app-puntuacion [rating]="selectedBebida.rating || 0" (ratingChange)="onRatingChange(selectedBebida.bebidaId!, $event)"></app-puntuacion>
+    </div>
+    
+</p-dialog>
 

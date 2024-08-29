@@ -83,7 +83,7 @@ export class ListPlatillosComponent implements OnInit {
   }
 
   onRatingChange(platilloId: number, rating: number) {
-    const usuarioId = this.authService.getUserId(); // Obtener el ID del usuario autenticado
+    const usuarioId = this.authService.getUserId(); 
 
     const puntuacionData = {
       usuarioId,

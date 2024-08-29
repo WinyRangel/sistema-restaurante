@@ -8,6 +8,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { BebidaService } from '../../services/bebida.service';
 import { Bebida } from '../../Interfaces/Bebida';
 import { Platillo } from '../../interfaces/Platillo';
+import { PuntuacionService } from '../../services/puntuacion.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,9 +28,13 @@ export class HomeComponent implements OnInit{
     private router: Router, 
     private _bebidaService: BebidaService,
     private platilloService: PlatilloService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef, private puntuacionService: PuntuacionService
 
   ) { }
+
+  selectedPlatillo: Platillo | null = null;
+  selectedBebida: Bebida | null = null;
+
   ngOnInit(): void {
     this.getListBebidas();
     this.getListPlatillos();
@@ -77,7 +83,39 @@ export class HomeComponent implements OnInit{
   }
 
 
-  showDialog() {
-      this.visible = true;
-  }
+  verDetallesPlatillo(platillo: Platillo) {
+    this.selectedPlatillo = platillo;
+    this.selectedBebida = null; // Limpiar cualquier bebida seleccionada
+    this.showDialog();
+}
+
+verDetallesBebida(bebida: Bebida) {
+    this.selectedBebida = bebida;
+    this.selectedPlatillo = null; // Limpiar cualquier platillo seleccionado
+    this.showDialog();
+}
+
+showDialog() {
+    this.visible = true;
+}
+
+
+
+onRatingChange(platilloId: number, rating: number) {
+  const usuarioId = this.authService.getUserId(); 
+
+  const puntuacionData = {
+    usuarioId,
+    platilloId,
+    puntuacion: rating,
+    comentario: ''
+  };
+
+  this.puntuacionService.agregarPuntuacion(puntuacionData).subscribe(() => {
+    Swal.fire('¡Éxito!', 'Puntuación guardada correctamente', 'success');
+  }, (error) => {
+    Swal.fire('Error', 'No se pudo guardar la puntuación', 'error');
+  });
+}
+
 }

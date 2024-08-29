@@ -12,7 +12,7 @@ const connectDB = async () => {
     const connection = await mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'admin',
+      password: '',
       database: 'sistemaPedidos',
       port: 3306
     });

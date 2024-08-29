@@ -100,3 +100,8 @@
     }
   }
   
+  .swal2-zindex {
+    z-index: 2000; /* Asegúrate de que sea mayor que el z-index del p-dialog */
+  }
+  
+  
