@@ -259,7 +259,7 @@ export class CarritoComponent implements OnInit {
       },
       (error) => {
         console.error('Error al obtener las órdenes:', error);
-        Swal.fire('Error', 'No se pudieron cargar las órdenes', 'error');
+        
       }
     );
   }
