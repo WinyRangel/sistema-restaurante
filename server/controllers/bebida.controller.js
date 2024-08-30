@@ -63,7 +63,7 @@ const actualizarBebida = async (req, res) => {
   const imagen = req.file ? req.file.filename : req.body.imagen;
   try {
     const connection = await connectDB();
-    const [result] = await connection.query('UPDATE bebidas SET nombre = ?, descripcion = ?, precio = ?, imagen = ? WHERE BebidaId = ?', [nombre, descripcion, precio, imagen, id]);
+    const [result] = await connection.query('UPDATE Bebidas SET nombre = ?, descripcion = ?, precio = ?, imagen = ? WHERE BebidaId = ?', [nombre, descripcion, precio, imagen, id]);
     if (result.affectedRows === 0) {
       return res.status(404).json({ msg: `No se encontró Bebida con ID ${id}` });
     }
