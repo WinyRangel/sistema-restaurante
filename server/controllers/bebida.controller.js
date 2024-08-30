@@ -78,7 +78,7 @@ const eliminarBebida = async (req, res) => {
   const { id } = req.params;
   try {
     const connection = await connectDB();
-    const [result] = await connection.query('DELETE FROM bebidas WHERE BebidaId = ?', [id]);
+    const [result] = await connection.query('DELETE FROM Bebidas WHERE BebidaId = ?', [id]);
     if (result.affectedRows === 0) {
       return res.status(404).json({ msg: `No se encontró Bebida con el id: ${id}` });
     }
