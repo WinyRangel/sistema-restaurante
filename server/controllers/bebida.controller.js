@@ -33,7 +33,7 @@ const getBebidaById = async (req, res) => {
   const { id } = req.params;
   try {
     const connection = await connectDB();
-    const [rows] = await connection.query('SELECT * FROM bebidas WHERE bebidaId = ?', [id]);
+    const [rows] = await connection.query('SELECT * FROM Bebida WHERE bebidaId = ?', [id]);
     if (rows.length === 0) {
       return res.status(404).json({ msg: `No se encontró bebida con ID ${id}` });
     }
