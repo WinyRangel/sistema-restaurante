@@ -1,4 +1,12 @@
-<button class="btn btn-warning mt-4" style="margin-left: 12px;" [routerLink]="'/añadir-bebida'" *ngIf="rol === 'admin'">Agregar Bebida</button>
+<button 
+pButton 
+    pRipple 
+    label="Añadir bebida"
+    icon="pi pi-plus"
+    class="p-button-warning custom-button" [routerLink]="'/añadir-bebida'"
+    *ngIf="rol === 'admin'">
+</button>
+
 <div class="container mt-4">
   <div class="row">
     <div *ngFor="let bebida of listBebidas" class="col-md-4 mb-4">
@@ -10,11 +18,39 @@
             <p class="card-text">{{ bebida.descripcion }}</p>
             <p class="card-text"><strong>Precio:</strong> {{ bebida.precio | currency }}</p>
           </div>
-          <div class="d-flex justify-content-between mt-3">
-            <button class="btn btn-primary btn-sm" (click)="editBebida(bebida.bebidaId!)" *ngIf="rol === 'admin'">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="deleteBebida(bebida.bebidaId!)" *ngIf="rol === 'admin'">Eliminar</button>
-            <button class="btn btn-success btn-sm" (click)="agregarCarrito(bebida.bebidaId!)">Agregar al Carrito</button> 
+          <div class="d-flex justify-content-between mt-3 button-group">
+            <button
+              pButton 
+              pRipple
+              icon="pi pi-pencil"
+              title="Editar información"
+              class="p-button-success action-button"
+              (click)="editBebida(bebida.bebidaId!)" 
+              *ngIf="rol === 'admin'">
+            </button>
+            
+            <button
+              pButton 
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-danger action-button"
+              title="Eliminar articulo"
+              (click)="deleteBebida(bebida.bebidaId!)"
+              *ngIf="rol === 'admin'">
+              Eliminar
+            </button>
+            
+            <button 
+              pButton 
+              pRipple
+              icon="pi pi-cart-plus"
+              title="Agregar al carrito"
+              class="p-button-primary action-button"
+              (click)="agregarCarrito(bebida.bebidaId!)">
+              Añadir al carrito
+            </button>
           </div>
+          
         </div>
       </div>
     </div>

@@ -16,26 +16,36 @@
   color: #6c757d;
 }
 
-.btn {
-  transition: background-color 0.2s, border-color 0.2s;
+.custom-button {
+  margin-left: 12px;
+  margin-top: 12px;
+  padding: 10px 20px; /* Ajusta el padding para un botón más estilizado */
+  font-size: 16px; /* Tamaño de fuente más legible */
+  border-radius: 8px; /* Bordes redondeados */
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease; /* Transición suave */
 }
 
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+.custom-button:hover {
+  background-color: hsl(44, 100%, 51%); /* Color más oscuro al hacer hover */
+  transform: translateY(-2px); /* Ligero efecto de elevación */
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+
+/* Contenedor del grupo de botones */
+.button-group {
+gap: 10px; /* Espacio entre los botones */
 }
 
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
+/* Estilo general para los botones */
+.action-button {
+border-radius: 8px; /* Bordes redondeados */
+padding: 8px 12px; /* Espaciado interno para un diseño más consistente */
+font-size: 18px; /* Tamaño de icono más legible */
+transition: transform 0.2s ease, box-shadow 0.3s ease; /* Transición suave para la interacción */
 }
 
-.btn-danger:hover {
-  background-color: #c82333;
-  border-color: #bd2130;
+/* Hover State para los botones */
+.action-button:hover {
+transform: translateY(-3px); /* Efecto de elevación */
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra sutil al hacer hover */
 }
