@@ -49,11 +49,11 @@ const crearBebida = async (req, res) => {
   const imagen = req.file ? req.file.filename : null;
   try {
     const connection = await connectDB();
-    const [result] = await connection.query('INSERT INTO bebidas (nombre, descripcion, precio, imagen) VALUES (?, ?, ?, ?)', [nombre, descripcion, precio, imagen]);
+    const [result] = await connection.query('INSERT INTO Bebidas (nombre, descripcion, precio, imagen) VALUES (?, ?, ?, ?)', [nombre, descripcion, precio, imagen]);
     res.json({ msg: 'Bebida creada correctamente', BebidaId: result.insertId });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ msg: 'Error al crear el Bebida' });
+    res.status(500).json({ msg: 'Error al crear la Bebida' });
   }
 };
 
