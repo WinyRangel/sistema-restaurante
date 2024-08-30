@@ -33,7 +33,7 @@ const getBebidaById = async (req, res) => {
   const { id } = req.params;
   try {
     const connection = await connectDB();
-    const [rows] = await connection.query('SELECT * FROM bebidas WHERE bebidaId = ?', [id]);
+    const [rows] = await connection.query('SELECT * FROM Bebida WHERE bebidaId = ?', [id]);
     if (rows.length === 0) {
       return res.status(404).json({ msg: `No se encontró bebida con ID ${id}` });
     }
@@ -49,11 +49,11 @@ const crearBebida = async (req, res) => {
   const imagen = req.file ? req.file.filename : null;
   try {
     const connection = await connectDB();
-    const [result] = await connection.query('INSERT INTO bebidas (nombre, descripcion, precio, imagen) VALUES (?, ?, ?, ?)', [nombre, descripcion, precio, imagen]);
+    const [result] = await connection.query('INSERT INTO Bebidas (nombre, descripcion, precio, imagen) VALUES (?, ?, ?, ?)', [nombre, descripcion, precio, imagen]);
     res.json({ msg: 'Bebida creada correctamente', BebidaId: result.insertId });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ msg: 'Error al crear el Bebida' });
+    res.status(500).json({ msg: 'Error al crear la Bebida' });
   }
 };
 
@@ -63,7 +63,7 @@ const actualizarBebida = async (req, res) => {
   const imagen = req.file ? req.file.filename : req.body.imagen;
   try {
     const connection = await connectDB();
-    const [result] = await connection.query('UPDATE bebidas SET nombre = ?, descripcion = ?, precio = ?, imagen = ? WHERE BebidaId = ?', [nombre, descripcion, precio, imagen, id]);
+    const [result] = await connection.query('UPDATE Bebidas SET nombre = ?, descripcion = ?, precio = ?, imagen = ? WHERE BebidaId = ?', [nombre, descripcion, precio, imagen, id]);
     if (result.affectedRows === 0) {
       return res.status(404).json({ msg: `No se encontró Bebida con ID ${id}` });
     }
@@ -78,7 +78,7 @@ const eliminarBebida = async (req, res) => {
   const { id } = req.params;
   try {
     const connection = await connectDB();
-    const [result] = await connection.query('DELETE FROM bebidas WHERE BebidaId = ?', [id]);
+    const [result] = await connection.query('DELETE FROM Bebidas WHERE BebidaId = ?', [id]);
     if (result.affectedRows === 0) {
       return res.status(404).json({ msg: `No se encontró Bebida con el id: ${id}` });
     }
