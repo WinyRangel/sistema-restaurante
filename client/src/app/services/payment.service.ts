@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class PaymentService {
-  private apiUrl = 'http://3.145.150.131:3002/api/payment'; // Cambia esto según la URL de tu backend
+  private apiUrl = 'http://3.128.24.47:3002/api/payment'; // Cambia esto según la URL de tu backend
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
