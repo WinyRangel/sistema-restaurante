@@ -8,11 +8,12 @@ const PAYPAL_API = process.env.PAYPAL_API; // URL sandbox or live for your app
 const HOST = 'http://3.128.24.47:3002/api/payment';
 
 const connectDB = async () => {
+
   try {
     const connection = await mysql.createConnection({
-      host: 'sistemapedidos.cxwyoe6wyp6p.us-east-2.rds.amazonaws.com',
-      user: 'root',             
-      password: 'qirvQgztv3uUBemoBkYd',  
+      host: 'sistema-restaurante.cp6o84ukgbxf.us-east-2.rds.amazonaws.com',
+      user: 'admin',             
+      password: 'sistema2*',  
       database: 'sistemaPedidos',   
       port: 3306             
     });
@@ -23,5 +24,6 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
+
 
 module.exports = connectDB;
