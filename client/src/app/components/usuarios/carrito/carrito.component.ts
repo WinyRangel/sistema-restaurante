@@ -198,13 +198,26 @@ export class CarritoComponent implements OnInit {
   pagar(total: number) {
     this.paymentService.createOrder(total).subscribe(
       (response) => {
-        // Redirige al usuario a PayPal para completar el pago
         window.location.href = response.links[1].href;
-        // Llama a saveCart() para guardar los datos del carrito
       },
       (error) => {
         console.error('Error al crear la orden de pago', error);
         Swal.fire('Error', 'No se pudo crear la orden de pago', 'error');
+      }
+    );
+  }
+
+  capturarOrden(token: string) {
+    this.paymentService.captureOrder(token).subscribe(
+      (response) => {
+        if (response.status === 'success') {
+          Swal.fire('Éxito', response.message, 'success');
+          // Aquí puedes redirigir al usuario o actualizar el estado de la interfaz
+        }
+      },
+      (error) => {
+        console.error('Error al capturar la orden', error);
+        Swal.fire('Error', 'No se pudo capturar la orden', 'error');
       }
     );
   }

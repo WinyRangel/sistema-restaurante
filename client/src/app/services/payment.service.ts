@@ -31,6 +31,7 @@ private getAuthToken(): string | null {
     return this.http.post(`${this.apiUrl}/capture-order?token=${token}`, {});
   }
   
+  
   cancelPayment(): Observable<any> {
     return this.http.get(`${this.apiUrl}/cancel-payment`);
   }
@@ -42,6 +43,8 @@ private getAuthToken(): string | null {
     });
     return this.http.post(`${this.apiUrl}/save-cart`, { total, tipoPagoId }, { headers });
 }
+
+
 
   // saveCart(): Observable<any> {
   //   const token = this.getAuthToken();

@@ -107,7 +107,6 @@ const captureOrder = async (req, res) => {
   const { token } = req.query;
   console.log(token);
 
-  // TODO: HACER QUE LO GUERDE EN LA BD
   try {
     const response = await axios.post(
       `${PAYPAL_API}/v2/checkout/orders/${token}/capture`,
@@ -119,10 +118,15 @@ const captureOrder = async (req, res) => {
         },
       }
     );
-
     console.log(response.data);
-    //res.redirect(`${HOST_FRONT}/carrito`);
-    res.redirect(`${HOST_FRONT}/carrito?status=aceptado`);
+
+    // Devuelve un mensaje de éxito junto con los datos de la respuesta de PayPal
+    return res.json({
+      status: 'success',
+      message: 'Orden capturada con éxito',
+      data: response.data
+    });
+
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Internal Server error" });
