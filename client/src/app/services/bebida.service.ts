@@ -7,7 +7,7 @@ import { Bebida } from '../Interfaces/Bebida';
   providedIn: 'root'
 })
 export class BebidaService {
-  private apiUrl = 'http://3.128.24.47:3002/api/bebidas';
+  private apiUrl = 'http://3.145.150.131:3002/api/bebidas';
 
   constructor(private http: HttpClient) { }
 

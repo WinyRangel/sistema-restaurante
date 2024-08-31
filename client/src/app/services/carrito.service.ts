@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 export class CarritoService {
     private static instance: CarritoService;
-    private apiUrl = 'http://3.128.24.47:3002/api/carrito';
+    private apiUrl = 'http://3.145.150.131:3002/api/carrito';
     
     constructor(private http: HttpClient) { }
 

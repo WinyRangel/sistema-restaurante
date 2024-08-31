@@ -7,8 +7,8 @@ import { Platillo } from '../interfaces/Platillo';
   providedIn: 'root'
 })
 export class PlatilloService {
-  private apiUrl = 'http://3.128.24.47:3002/api/platillos';
-  private carrito = 'http://3.128.24.47:3002/api/carrito/actualizar'
+  private apiUrl = 'http://3.145.150.131:3002/api/platillos';
+  private carrito = 'http://3.145.150.131:3002/api/carrito/actualizar'
 
   constructor(private http: HttpClient) { }
 
