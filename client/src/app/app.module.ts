@@ -1,4 +1,4 @@
-
+import { OrganizationChartModule } from 'primeng/organizationchart';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Asegúrate de importar ReactiveFormsModule
@@ -84,7 +84,8 @@ import { OrdenesComponent } from './components/administrador/ordenes/ordenes.com
     CarouselModule,
     FieldsetModule,
     PanelModule,
-    DialogModule
+    DialogModule,
+    OrganizationChartModule
   ],
   providers: [
   provideHttpClient(withFetch()),

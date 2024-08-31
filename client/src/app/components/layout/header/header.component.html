@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a href="inicio" class="navbar-brand d-flex align-items-center">
+    <a routerLink="inicio" class="navbar-brand d-flex align-items-center">
       <img src="https://i.ibb.co/W0KpBCy/logo-2-removebg-preview-1.png" alt="" width="100" height="101" class="me-2">
       <span class="brand-name">Porita Coffe</span>
     </a>
@@ -10,26 +10,26 @@
     <div class="collapse navbar-collapse" id="navbarColor04">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="bebidas">Bebidas</a>
+          <a class="nav-link" routerLink="/listar-bebidas">Bebidas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/listar-platillos">Platillos</a>
+          <a class="nav-link" routerLink="/listar-platillos">Platillos</a>
         </li>
         <li>
-          <a class="nav-link"  *ngIf="rol === 'admin'" href="/listar-usuarios" >Usuarios</a>
+          <a class="nav-link"  *ngIf="rol === 'admin'" routerLink="/listar-usuarios" >Usuarios</a>
         </li>
         <li class="nav-item" *ngIf="rol === 'admin'">
-          <a class="nav-link" href="/ordenes">Ordenes</a>
+          <a class="nav-link" routerLink="/ordenes">Ordenes</a>
         </li>
         <li class="nav-item" *ngIf="!usuarioAutenticado">
-          <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
+          <a class="nav-link" routerLink="/iniciar-sesion">Iniciar sesión</a>
         </li>
       </ul>
   
       <div *ngIf="usuarioAutenticado" class="navbar-nav ms-auto">
         <span class="navbar-text me-3">Bienvenido, {{ nombreUsuario }}</span>
         <span class="navbar-text me-3"> {{ rol }}</span>
-        <a class="nav-link" href="/carrito">
+        <a class="nav-link" routerLink="/carrito">
           <i class="fa-solid fa-cart-shopping fa-lg"></i>  
         </a>
         <a class="nav-link" (click)="cerrarSesion()" alt="Cerrar sesión">

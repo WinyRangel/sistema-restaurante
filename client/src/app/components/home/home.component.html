@@ -7,10 +7,10 @@
 </div>
 <ul class="nav justify-content-center">
   <li class="nav-item">
-    <a class="nav-link" href="#">Bebidas</a>
+    <a class="nav-link" routerLink="/listar-bebidas">Bebidas</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Platillos</a>
+    <a class="nav-link" routerLink="/listar-platillos">Platillos</a>
   </li>
 </ul>
 <br>
@@ -19,7 +19,7 @@
 <!-- Tarjetas de platillos -->
 <div class="container text-center mt-3 mb-3">
   <div class="row">
-    <div class="col-md-3 mb-3" *ngFor="let platillo of listPlatillos">
+    <div class="col-md-3 mb-3" *ngFor="let platillo of listPlatillos.slice(0, 4)">
       <p-card header="{{platillo.nombre}}" subheader="$ {{platillo.precio}}" [style]="{ width: '100%' }">
         <ng-template pTemplate="header">
           <img alt="Card" src="{{platillo.imagen}}" />
@@ -43,7 +43,7 @@
 <!-- Tarjetas de bebidas -->
 <div class="container text-center mt-3 mb-3">
   <div class="row">
-    <div class="col-md-3 mb-3" *ngFor="let bebida of listBebidas">
+    <div class="col-md-3 mb-3" *ngFor="let bebida of listBebidas.slice(0,4)">
       <p-card header="{{bebida.nombre}}" subheader="$ {{bebida.precio}}" [style]="{ width: '100%' }">
         <ng-template pTemplate="header">
           <img alt="Card" src="{{bebida.imagen}}" />
